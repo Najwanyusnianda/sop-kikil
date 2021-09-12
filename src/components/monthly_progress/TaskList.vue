@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+    <div class=" p-4  dark:bg-gray-700 w-full">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center">
                <!-- <span class="rounded-xl relative p-2 bg-blue-100">
@@ -58,10 +58,10 @@
 
         </div>
 
-        <div class="flex items-center justify-start my-4">
-            <div class="bg-white max-w-2xl shadow-sm overflow-hidden sm:rounded-lg">
-                <div>
-                    <table class="min-w-full leading-normal">
+        <div class="bg-white  flex items-center justify-center  shadow-lg rounded-2xl">
+            <div class="w-full  overflow-hidden sm:rounded-lg ">
+                <div class="flex w-full">
+                    <table class="min-w-full leading-norma table-auto  ">
                         <thead>
                             <tr>
 

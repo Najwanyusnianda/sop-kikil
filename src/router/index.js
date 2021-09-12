@@ -24,7 +24,7 @@ const routes = [
   {
     path:'/sop',
     name:'Sop',
-    component: () => import(/* webpackChunkName: "about" */ '../views/sop.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Sop.vue')
 
   },
   {
@@ -35,7 +35,9 @@ const routes = [
       {
         path:'laporan_bulanan',
         name:'LaporanBulanan',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Management/LaporanBulanan.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Management/LaporanBulanan.vue'),
+
+
 
       },
       {
