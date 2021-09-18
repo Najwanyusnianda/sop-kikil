@@ -8,7 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@jobinsjp/vue3-datatable": "^1.0.9",
     "@tailwindcss/postcss7-compat": "^2.0.2",
+    "ag-grid-community": "^26.0.0",
+    "ag-grid-vue3": "^26.0.1",
     "autoprefixer": "^9",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
@@ -16,7 +19,9 @@
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^3.0.0",
+    "vue-class-component": "^8.0.0-rc.1",
     "vue-final-modal": "^3.4.1",
+    "vue-good-table": "^2.21.10",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
