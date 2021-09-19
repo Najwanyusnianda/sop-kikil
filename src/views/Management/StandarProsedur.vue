@@ -19,7 +19,7 @@
                     </div>
                     <div class="mb-4" v-else-if="tabs_menu.is_add_sop">
                         <div class="">
-                            <p>bb</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>

@@ -23,6 +23,7 @@
     "vue-final-modal": "^3.4.1",
     "vue-good-table": "^2.21.10",
     "vue-router": "^4.0.0-0",
+    "vue3-table-lite": "^1.0.6",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {

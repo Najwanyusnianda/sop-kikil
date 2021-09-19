@@ -62,7 +62,7 @@
 
             <div class="bg-white  flex items-center justify-center  shadow-lg rounded-2xl">
                 <div class="w-full   sm:rounded-lg ">
-
+                    <table-task :columns="columns_sop" :rows="sop_list"></table-task>
                 </div>
             </div>
 
@@ -71,20 +71,85 @@
     </div>
 </template>
 <script>
- import {
-     AgGridVue
- } from "ag-grid-vue3";
- export default {
-     name: 'SopCrud',
-     components: {
-         AgGridVue
-     },
-     data() {
-         return {
+import TableTask from '../../components/utils/TableTask.vue'
 
-         }
-     },
+export default {
+    name: 'SopCrud',
+    components: {
+        TableTask
+
+    },
+    data() {
+        return {
+            columns_sop: [{
+                    label: 'Name',
+                    field: 'name',
+                },
+                {
+                    label: 'Age',
+                    field: 'age',
+                    type: 'number',
+                },
+                {
+                    label: 'Created On',
+                    field: 'createdAt',
+                    type: 'date',
+                    dateInputFormat: 'yyyy-MM-dd',
+                    dateOutputFormat: 'MMM do yy',
+                },
+                {
+                    label: 'Percent',
+                    field: 'score',
+                    type: 'percentage',
+                },
+            ],
+            sop_list: [{
+                    id: 1,
+                    name: "John",
+                    age: 20,
+                    createdAt: '',
+                    score: 0.03343
+                },
+                {
+                    id: 2,
+                    name: "Jane",
+                    age: 24,
+                    createdAt: '2011-10-31',
+                    score: 0.03343
+                },
+                {
+                    id: 3,
+                    name: "Susan",
+                    age: 16,
+                    createdAt: '2011-10-30',
+                    score: 0.03343
+                },
+                {
+                    id: 4,
+                    name: "Chris",
+                    age: 55,
+                    createdAt: '2011-10-11',
+                    score: 0.03343
+                },
+                {
+                    id: 5,
+                    name: "Dan",
+                    age: 40,
+                    createdAt: '2011-10-21',
+                    score: 0.03343
+                },
+                {
+                    id: 6,
+                    name: "John",
+                    age: 20,
+                    createdAt: '2011-10-31',
+                    score: 0.03343
+                },
+            ]
+        }
+    }
+}
 
 
- }
+
 </script>
