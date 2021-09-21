@@ -34,7 +34,10 @@ import TabsMenu from '../../components/monthly_progress/TabsMenu.vue'
 import IkpaList from '../../components/monthly_progress/IkpaList.vue'
 import TaskList from '../../components/monthly_progress/TaskList.vue'
 import TaskForm from '../../components/monthly_progress/TaskForm.vue'
+import axios from 'axios'
+import {mapState} from 'vuex'
 
+axios.defaults.baseURL='http://127.0.0.1:8000'
 //import { mapState } from 'vuex'
 //import TabsMenu from '../../components/monthly_progress/TabsMenu.vue'
 export default {
@@ -53,12 +56,12 @@ export default {
                 is_rutin_tabs:true,
 
             },
-            months:[ { "month_num": 1, "name": "Januari" }, 
-            { "month_num": 2, "name": "Februari" }, { "month_num": 3, "name": "Maret" }, 
-            { "month_num": 4, "name": "April" }, { "month_num": 5, "name": "Mei" }, 
-            { "month_num": 6, "name": "June" }, { "month_num": 7, "name": "Juli" }, 
-            { "month_num": 8, "name": "Agustus" }, { "month_num":8 , "name": "September" }, 
-            { "month_num": 10, "name": "Oktober" }, { "month_num": 9, "name": "November" }, 
+            months:[ { "month_num": 1, "name": "Januari" },
+            { "month_num": 2, "name": "Februari" }, { "month_num": 3, "name": "Maret" },
+            { "month_num": 4, "name": "April" }, { "month_num": 5, "name": "Mei" },
+            { "month_num": 6, "name": "June" }, { "month_num": 7, "name": "Juli" },
+            { "month_num": 8, "name": "Agustus" }, { "month_num":8 , "name": "September" },
+            { "month_num": 10, "name": "Oktober" }, { "month_num": 9, "name": "November" },
             { "month_num": 12, "name": "Desember" } ],
             selected_task_indicator:'',
             selected_ikpa_indicator:'',
@@ -93,16 +96,25 @@ export default {
         }
     },
     computed:{
-
+        ...mapState(['current_month','current_year'])
     },
     methods:{
-       entriTask(indicator_id){//async
+     async entriTask(indicator_id){//async
             /*const url='/get_task/'+indicator_id
             await  axios.get(url,{}).then((response)=>{
                 //console.log(response.data)
                 this.selected_task=response.data
                 this.selected_task_indicator=this.selected_task.id
             })*/
+            const url=`/monthly_progress/task/${indicator_id}`
+            await axios.get(url).then((response)=>{
+                //console.log(response.data)
+                this.selected_task=response.data
+                this.selected_task_indicator=this.selected_task.id
+            }).catch((error)=>{
+                console.log(console.log(error))
+            })
+
             this.selected_task_indicator=indicator_id
         },
         changeTabs(kode_tabs){
@@ -117,8 +129,19 @@ export default {
         changeTaskState(){
             return this.selected_task_indicator =''
         },
-       getTaskList(){//async
+       async getTaskList(month){//async
+               this.$store.commit('is_loading',true)
+           const url=`/monthly_progress/${month}`
 
+          await axios.get(url)
+          .then((response)=>{
+              const res=response.data
+              this.tasks=res.data
+              this.$store.commit('is_loading',false)
+          }).catch((error)=>{
+              console.log(error)
+              this.$store.commit('is_loading',false)
+          })
         }
     },
     created(){

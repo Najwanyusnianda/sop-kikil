@@ -125,6 +125,7 @@
 
 <script>
 import dayjs from 'dayjs'
+import axios from 'axios'
 export default {
     name:'TaskList',
     props:{
@@ -161,7 +162,7 @@ export default {
         }
     },
     methods:{
-        addIndicator(indicator_id){
+        async addIndicator(indicator_id){
 
             this.$emit('selectInd',indicator_id)
         },
