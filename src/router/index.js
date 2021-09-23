@@ -16,17 +16,18 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path:'/dashboard',
-    name:'Dashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
-
-  },
-  {
     path:'/sop',
     name:'Sop',
     component: () => import(/* webpackChunkName: "about" */ '../views/Sop.vue')
 
   },
+  {
+    path:'/dashboard',
+    name:'Dashboard',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
+
+  },
+
 
   {
     path:'/management',
