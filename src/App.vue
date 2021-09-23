@@ -4,9 +4,9 @@
     <router-link to="/about">About</router-link>
   </div>-->
 
-  <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl h-screen relative">
+  <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl flex flex-col flex-1  relative">
     <navbar></navbar>
-    <div class="flex w-full bg-gray-100">
+    <div class="flex flex-col flex-1 w-full h-full bg-gray-100">
     <router-view/>
     </div>
 
