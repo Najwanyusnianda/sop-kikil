@@ -5,6 +5,7 @@
   </div>-->
 
   <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl flex flex-col flex-1  relative">
+
     <navbar></navbar>
     <div class="flex flex-col flex-1 w-full h-full bg-gray-100">
     <router-view/>
@@ -14,10 +15,16 @@
 
 </template>
 <script>
+//import Loading from 'vue-loading-overlay'
 import Navbar from './components/navbar.vue'
+import {mapState} from 'vuex'
 export default {
   components:{
-    Navbar
+    Navbar,
+    ///Loading
+  },
+  methods:{
+      ...mapState(['current_month','current_year','is_loading'])
   }
 }
 </script>

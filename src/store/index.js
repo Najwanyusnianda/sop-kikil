@@ -13,6 +13,7 @@ export default createStore({
     loginError:null,
     showModal:false,
     is_loading:false,
+
     current_month:{name:'Oktober', value:10},
     current_year:2021,
     months:[
@@ -25,12 +26,16 @@ export default createStore({
     },
     SET_MONTH(state,selected_month){
       state.current_month=selected_month
-    }
+    },
+
+
   },
   actions: {
     changeMonth({commit},selected_month){
       commit('SET_MONTH',selected_month)
-    }
+    },
+
+
   },
   modules: {
   },

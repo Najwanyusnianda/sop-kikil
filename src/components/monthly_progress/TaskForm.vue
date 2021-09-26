@@ -4,7 +4,7 @@
             <div class="flex items-center">
 
                 <button @click="removeTaskState()" type="button"
-                    class="py-2 px-4 flex justify-center items-center  bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold  focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                    class="py-1 px-2 flex justify-center items-center   hover:bg-gray-500 focus:ring-gray-500 focus:ring-offset-gray-200 text-gray-700 hover:text-white w-full transition ease-in duration-200 text-center text-base text-sm  focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -33,44 +33,49 @@
 
         </div>
 
-        <div class="flex items-center justify-center my-4 bg-white bg-white  flex items-center justify-center  shadow-lg rounded-2xl">
-            <form class="flex w-full  max-w-lg space-x-3">
+        <div
+            class="flex items-center justify-center my-4 bg-white bg-white  flex items-center justify-center  shadow-lg rounded-2xl">
+            <form class="flex w-full  max-w-lg space-x-3" @submit.prevent="storeTaskProgress">
                 <div class="w-full  max-w-2xl px-5  m-auto  rounded-lg  dark:bg-gray-800">
 
 
                     <div class="container mx-auto max-w-md  hover:shadow-lg transition duration-300">
 
                         <div class="py-12 p-10  rounded-xl">
-                                                                        <div class="mb-6 text-xl font-light text-center text-gray-800 dark:text-white">
-                        {{ task.name }}
-                    </div>
+                            <!--<div class="">
+                                <label class="mr-4 text-gray-700 font-bold inline-block mb-2" for="name">id</label>
+                                <input type="text" v-model="id"
+                                    class=" w-full block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                                    placeholder="" />
+                            </div>-->
+                            <div class="mb-6 text-xl font-light text-center text-gray-800 dark:text-white">
+                                {{ task.name }}
+                            </div>
                             <div class="mb-6">
 
-                                                                    <label class="mr-4 text-gray-700 font-bold inline-block mb-2"
-                                    for="name">Keterangan</label>
+                                <label class="mr-4 text-gray-700 font-bold inline-block mb-2"
+                                    for="name">Sudah dikerjakan? </label>
 
                                 <select
                                     class="block w-52 text-gray-700 py-2 px-3 border w-full border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                                    name="animals">
+                                    name="status" v-model="status">
 
-                                    <option value="1">
+                                    <option value="0">
                                         Belum
                                     </option>
-                                    <option value="0">
+                                    <option value="1">
                                         Sudah
                                     </option>
 
                                 </select>
                             </div>
                             <div class="">
-                                <label class="mr-4 text-gray-700 font-bold inline-block mb-2" for="name">Tanggal</label>
-                                <input type="text"
-                                    class=" w-full block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                                    placeholder="dd/mm/yyyy" />
+                                <label class="mr-4 text-gray-700 font-bold inline-block mb-2" for="name">Tanggal Selesai {{date_completed}}</label>
+                                <litepie-datepicker v-model="date_completed" as-single :formatter="formatter"></litepie-datepicker>
                             </div>
                             <br>
                             <button
-                                class="mt-5 w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">Simpan</button>
+                                class="mt-5 w-full mt-6 text-blue-50 font-bold bg-blue-600 py-3 rounded-md hover:bg-blue-500 transition duration-300">Simpan</button>
                         </div>
                     </div>
 
@@ -82,16 +87,58 @@
 </template>
 
 <script>
+import LitepieDatepicker from 'litepie-datepicker'
+import axios from 'axios'
+import dayjs from 'dayjs'
+import {ref} from 'vue'
 export default {
     name:'TaskForm',
+    components:{
+        LitepieDatepicker
+    },
     props:{
         task:{
             type:Object
         }
     },
+    data(){
+        return{
+            id:this.task.id,
+            status:'',
+            date_completed:''
+        }
+    },
     methods:{
         removeTaskState(){
             this.$emit('removeTaskState')
+        },
+        async storeTaskProgress(){
+            this.$store.commit('SET_LOADING',true)
+            await axios.post('/monthly_progress/task',{
+                id:this.id,
+                status:this.status,
+                completed_date:dayjs(this.date_completed).format('YYYY-MM-DD')
+            }).then((response)=>{
+                const result = response.data
+                if(result.success){
+                this.$store.commit('SET_LOADING',false)
+                    const message=result.message
+                    this.$emit("updatedTaskStatus",message)
+                    this.removeTaskState()
+                }
+
+            })
+
+        }
+    },
+    setup(){
+        const formatter =ref({
+            date:'DD MMM YYYY',
+            month:'MMM'
+        })
+
+        return{
+            formatter
         }
     }
 

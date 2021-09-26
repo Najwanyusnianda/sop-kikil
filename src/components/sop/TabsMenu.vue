@@ -1,9 +1,9 @@
 <template>
             <div class="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center">
-                <div class="relative items-center pl-1 flex w-full lg:max-w-68 sm:pr-2 sm:ml-0">
-                    <div class="container relative left-0 z-50 flex w-2/4 h-auto h-full" v-for="list in list_menu" :key="list.name">
+                <div class="relative items-center pl-1 flex w-2/3 lg:max-w-68 sm:pr-2 sm:ml-0">
+                    <div class="inline-flex w-full px-1 pt-2" v-for="list in list_menu" :key="list.name">
 
-<button @click="changeTabs(list.kode)" type="button" :class="[list.current ? 'focus:outline-none focus:ring-2 focus:ring-offset-2  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200' : 'focus:outline-none focus:ring-2 focus:ring-offset-2  bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200']" class="mx-4 py-2 px-4 flex justify-center items-center  text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md  rounded-lg ">
+<button @click="changeTabs(list.kode)" type="button" :class="[list.current ? '-mb-px  text-gray-800 border-b-2 border-blue-400 rounded-t' : 'text-gray-800 rounded-t opacity-50']" class="hover:opacity-100 mx-4 py-2 px-4 flex justify-center items-center  w-full transition ease-in duration-200 text-center text-base font-bold">
 
     {{ list.name  }}
 </button>
@@ -38,18 +38,18 @@ export default {
                     name:'Daftar SOP',
                     current:true
                 },
-                {
+               /* {
                     kode:'02',
                     name:'Buat Sop',
                     current:false
-                }
+                }*/
             ]
         }
     },
     methods:{
         changeTabs(kode_tabs) {
                         let kodes=kode_tabs
-          
+
               this.$emit('changedTabs', kodes)
             this.list_menu.map((el) => {
 
@@ -63,8 +63,8 @@ export default {
             );
 
 
-         
-            
+
+
 
         }
 

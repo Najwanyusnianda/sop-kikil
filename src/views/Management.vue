@@ -1,5 +1,5 @@
 <template>
-    <main class="h-screen dark:bg-gray-800 rounded-2xl h-screen w-full flex relative">
+    <main class=" dark:bg-gray-800 rounded-2xl  w-full flex relative">
         <div class="flex w-full items-start justify-between">
             <sidebar></sidebar>
             <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4">

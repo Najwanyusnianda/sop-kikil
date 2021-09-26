@@ -1,25 +1,29 @@
 <template>
-    <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
+    <div class="flex flex-col w-full pl-0 md:px-4 md:space-y-2">
         <!-- tab -->
-        <header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40">
+      <!--  <header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40">
             <tabs-menu :tabs_menu='tabs_menu' @changedTabs="changeTabs"></tabs-menu>
 
 
-        </header>
+        </header>-->
         <!------------------------ Main Section -->
-        <div class=" h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
+        <div class=" bg-gray-100 pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
             <div class="flex flex-col flex-wrap justify-start sm:flex-row ">
                 <div class="w-full ">
-                    <div class="mb-4" v-if="tabs_menu.is_list_sop">
-                        <div class="">
-                            <sop-crud></sop-crud>
+                    <div class="mb-4 wowz" v-if="tabs_menu.is_list_sop">
+                        <div v-if="is_form_sop">
+
+                            <sop-form @showSopForm="showSopForm"></sop-form>
+                        </div>
+                        <div class="" v-else >
+                            <sop-crud @showSopForm="showSopForm" ></sop-crud>
                         </div>
 
 
                     </div>
-                    <div class="mb-4" v-else-if="tabs_menu.is_add_sop">
+                    <div class="mb-4 wow" v-else-if="tabs_menu.is_add_sop">
                         <div class="">
-                            <p></p>
+                            <p>dddd</p>
                         </div>
                     </div>
                 </div>
@@ -32,15 +36,16 @@
 
 import SopCrud from '../../components/sop/SopCrud.vue'
 
-
-import TabsMenu from '../../components/sop/TabsMenu.vue'
+import SopForm from '../../components/sop/SopForm.vue'
+//import TabsMenu from '../../components/sop/TabsMenu.vue'
 
 export default {
     components: {
-        TabsMenu,
+        //TabsMenu,
         //SopList,
-        SopCrud
-  
+        SopCrud,
+        SopForm
+
     },
     name: 'StandarProsedur',
     data() {
@@ -50,9 +55,7 @@ export default {
                 is_add_sop: false,
 
             },
-            component: {
-                TabsMenu,
-            },
+            is_form_sop:false,
             sops:[{"id":1,"sop_name":"Konklab","download_path":"https://netlog.com/platea/dictumst/etiam/faucibus.jpg","tags":[{},{}],"updated":"2021-04-27"},
                     {"id":2,"sop_name":"Lotstring","download_path":"http://pinterest.com/integer.xml","tags":[{}],"updated":"2020-07-19"},
                     {"id":3,"sop_name":"Bitchip","download_path":"http://yelp.com/eu/tincidunt/in/leo/maecenas/pulvinar/lobortis.json","tags":[{},{}],"updated":"2021-07-19"},
@@ -78,21 +81,30 @@ export default {
     },
     methods: {
         changeTabs(kode_tabs) {
-     
+
             if (kode_tabs === "01") {
-              
+
                  this.tabs_menu.is_list_sop = true
                  this.tabs_menu.is_add_sop = false
                 return
 
             } else if (kode_tabs === "02") {
-      
+
                 this.tabs_menu.is_list_sop = false
                 this.tabs_menu.is_add_sop = true
-                return 
+                return
 
             }
         },
+        showSopForm(){
+
+            if(this.is_form_sop){
+                this.is_form_sop = false
+            }else{
+                this.is_form_sop=true
+            }
+
+        }
 
     }
 }

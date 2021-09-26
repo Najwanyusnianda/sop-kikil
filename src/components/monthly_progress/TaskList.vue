@@ -25,12 +25,10 @@
                     <option value="">
                         Pilih Bulan
                     </option>
-                    <option value="dog">
-                        Dog
+                    <option :value="month.value" v-for="month in months" :key="month.value">
+                        {{ month.name }}
                     </option>
-                    <option value="cat">
-                        Cat
-                    </option>
+
 
                 </select>
 
@@ -58,31 +56,28 @@
 
         </div>
 
-        <div class="bg-white  flex items-center justify-center  shadow-lg rounded-2xl">
+        <div class="bg-white  flex items-center justify-center shadow-md rounded-2xl pb-8">
             <div class="w-full  overflow-hidden sm:rounded-lg ">
                 <div class="flex w-full">
-                    <table class="min-w-full leading-norma table-auto  ">
-                        <thead>
-                            <tr>
+                    <table class="min-w-full divide-y divide-gray-200 ">
+                                    <thead class="bg-gray-200 border-b">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Kinerja
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Jadwal
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Progress
+                </th>
 
-                                <th scope="col"
-                                    class="px-5 py-2 bg-white  border-b border-gray-200 text-gray-800  text-left text-md uppercase font-bold">
-                                    Kinerja
-                                </th>
-                                <th scope="col"
-                                    class="px-5 py-2 bg-white  border-b border-gray-200 text-gray-800  text-left text-md uppercase font-bold">
-                                    Jadwal
-                                </th>
-                                <th scope="col"
-                                    class="px-5 py-2 bg-white  border-b border-gray-200 text-gray-800  text-left text-md uppercase font-bold">
-                                    Progress
-                                </th>
-                                <th scope="col"
-                                    class="px-5 py-2 bg-white  border-b border-gray-200 text-gray-800  text-left text-md uppercase font-bold">
+                <th scope="col" class="relative px-6 py-3">
+                     <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
 
-                                </th>
-                            </tr>
-                        </thead>
 
                         <tbody v-if="map_tasks">
 
@@ -106,7 +101,7 @@
 
                                 </td>
                                 <td class="px-5 py-2  text-sm">
-                                        <button @click="addIndicator(task.indicator_id)" class="bg-gray-200 text-gray-600 font-light hover:bg-gray-300
+                                        <button @click="addIndicator(task.id)" class="bg-gray-200 text-gray-600 font-light hover:bg-gray-300
                                             focus:ring-offset-gray-200 focus:ring-gray-500 font-semibold text-sm  px-4 rounded inline-flex items-center shadow focus:ring-2 focus:ring-offset-2  ">
                                             <span>Entri</span>
                                         </button>
@@ -125,6 +120,7 @@
 
 <script>
 import dayjs from 'dayjs'
+import {mapState} from 'vuex'
 //import axios from 'axios'
 export default {
     name:'TaskList',
@@ -144,6 +140,7 @@ export default {
         }
     },
     computed:{
+        ...mapState(['months','current_month']),
         map_tasks(){
           console.log(this.tasks)
             return this.tasks.map((task)=>{
@@ -151,6 +148,7 @@ export default {
                 task.end_date= dayjs(task.end_date).format('DD MMMM')
 
                 return {
+                    id:task.id,
                     name:task.name,
                     start_date:task.start_date,
                     end_date:task.end_date,

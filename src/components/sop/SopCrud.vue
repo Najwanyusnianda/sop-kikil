@@ -8,7 +8,7 @@
                 </span>-->
                     <div class="mr-5 flex flex-col">
                         <span class="font-bold text-2xl text-gray-800 dark:text-white ml-2">
-                            Tugas Rutin Bulanan
+                            Daftar Standar Operasional Prosedur
                         </span>
                         <span class="text-sm text-gray-500 dark:text-white ml-2">
 
@@ -19,22 +19,21 @@
                         September 2021
                     </span>
                 </div>
+
                 <div class="flex items-center">
 
-                    <select
-                        class="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                        name="month">
-                        <option value="">
-                            Pilih Bulan
-                        </option>
-                        <option value="dog">
-                            Dog
-                        </option>
-                        <option value="cat">
-                            Cat
-                        </option>
+                    <div class="">
 
-                    </select>
+
+<button type="button"  @click="addNewSop" class="py-2 px-4 flex justify-center items-center  bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+</svg>
+    Buat Baru
+</button>
+
+
+                    </div>
 
                     <button class="text-gray-200">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792"
@@ -147,7 +146,13 @@ export default {
                 },
             ]
         }
+    },
+    methods:{
+        addNewSop(){
+            this.$emit("showSopForm")
+        }
     }
+
 }
 
 
