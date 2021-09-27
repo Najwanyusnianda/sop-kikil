@@ -57,10 +57,18 @@ export default {
                 return []
             }
 
-        }
+        },
+        tags_list:{
+            type:Array,
+            default:function(){
+                return []
+            }
+
+        },
+
     },
     data(){
-        
+
     }
 }
 </script>

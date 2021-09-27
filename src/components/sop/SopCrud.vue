@@ -61,7 +61,63 @@
 
             <div class="bg-white  flex items-center justify-center  shadow-lg rounded-2xl">
                 <div class="w-full   sm:rounded-lg ">
-                    <table-task :columns="columns_sop" :rows="sop_list"></table-task>
+                              <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Judul
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  deskripsi
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Update Terakhir
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+                </th>
+                <th scope="col" class="relative px-6 py-3">
+                  <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr v-for="sop in sops" :key="sop.id">
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ sop.title }}
+                </td>
+
+                <td class="px-6 py-4 whitespace-nowrap">
+
+                    {{ sop.description }}
+
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ sop.updated }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium">
+                    <div class="inline-flex">
+  <button @click="detailSop(sop.id)" class="bg-gray-200 hover:bg-blue-600  text-gray-800 hover:text-white py-2 px-4 rounded-l">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+</svg>
+  </button>
+    <button @click="updateSop(sop.id)" class="bg-gray-200 hover:bg-blue-600  text-gray-800  hover:text-white py-2 px-4 ">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+</svg>
+  </button>
+  <button @click="deleteSop(id)" class="bg-red-500 hover:bg-red-700  text-white  hover:text-white py-2 px-4 rounded-r">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+</svg>
+  </button>
+</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
                 </div>
             </div>
 
@@ -70,87 +126,74 @@
     </div>
 </template>
 <script>
-import TableTask from '../../components/utils/TableTask.vue'
-
+//import TableTask from '../../components/utils/TableTask.vue'
+import dayjs from 'dayjs'
 export default {
     name: 'SopCrud',
     components: {
-        TableTask
+       // TableTask
+
+    },
+    props:{
+            sop_list:{
+            type:Array,
+            default:function(){
+                return []
+            }
+
+        },
+                tag_list:{
+            type:Array,
+            default:function(){
+                return []
+            }
+
+        },
 
     },
     data() {
         return {
-            columns_sop: [{
-                    label: 'Name',
-                    field: 'name',
-                },
-                {
-                    label: 'Age',
-                    field: 'age',
-                    type: 'number',
-                },
-                {
-                    label: 'Created On',
-                    field: 'createdAt',
-                    type: 'date',
-                    dateInputFormat: 'yyyy-MM-dd',
-                    dateOutputFormat: 'MMM do yy',
-                },
-                {
-                    label: 'Percent',
-                    field: 'score',
-                    type: 'percentage',
-                },
-            ],
-            sop_list: [{
-                    id: 1,
-                    name: "John",
-                    age: 20,
-                    createdAt: '',
-                    score: 0.03343
-                },
-                {
-                    id: 2,
-                    name: "Jane",
-                    age: 24,
-                    createdAt: '2011-10-31',
-                    score: 0.03343
-                },
-                {
-                    id: 3,
-                    name: "Susan",
-                    age: 16,
-                    createdAt: '2011-10-30',
-                    score: 0.03343
-                },
-                {
-                    id: 4,
-                    name: "Chris",
-                    age: 55,
-                    createdAt: '2011-10-11',
-                    score: 0.03343
-                },
-                {
-                    id: 5,
-                    name: "Dan",
-                    age: 40,
-                    createdAt: '2011-10-21',
-                    score: 0.03343
-                },
-                {
-                    id: 6,
-                    name: "John",
-                    age: 20,
-                    createdAt: '2011-10-31',
-                    score: 0.03343
-                },
-            ]
+
+
         }
     },
+    computed:{
+        sops(){
+            return this.sop_list.map((sop)=>{
+                let tags= this.tag_list.filter((tag)=>{
+                        return tag.sop_id == sop.id
+                    }
+                )
+                return{
+                    "id":sop.id,
+                    "title":sop.title,
+                    "file_url":sop.file_url,
+                    "description":sop.description,
+                    "img_url":'',
+                    "updated":dayjs(sop.updated_at).format('YYYY-MM-DD HH:mm:ss'),
+                    "tags":tags
+
+
+                }
+
+            })
+        }
+    },
+
     methods:{
         addNewSop(){
             this.$emit("showSopForm")
+        },
+        updateSop(id){
+            this.$emit("updateSop",id)
+        },
+        detailSop(id){
+            this.$emit("detailSop",id)
+        },
+        deleteSop(id){
+            this.$emit("deleteSop",id)
         }
+
     }
 
 }
