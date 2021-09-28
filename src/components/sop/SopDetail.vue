@@ -1,22 +1,24 @@
 <template>
- <section class="text-gray-600 body-font overflow-hidden">
+ <section class="text-gray-600 body-font min-w-4/5">
   <div class="px-5 py-5 mx-auto">
     <div class="min-w-full mx-auto ">
       <div class="mx-auto w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
         <h2 class="text-sm title-font text-gray-500 tracking-widest">{{current_sop.title}}</h2>
-        <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">Animated Night Hill Illustrations</h1>
-        <div class="flex mb-4">
-          <button @click="tabs=1" class="flex-grow " :class="[tabs== 1 ? 'text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1' : 'border-b-2 border-gray-300 py-2 text-lg px-1']">Deskripsi Ringkas</button>
-          <button @click="tabs=2" class="flex-grow " :class="[tabs== 2 ? 'text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1' : 'border-b-2 border-gray-300 py-2 text-lg px-1']">Pelaksana</button>
-        
+        <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{current_sop.title}}</h1>
+        <div class=" mb-4 w-100">
+        <button @click="tabs=1" class="flex-grow " :class="[tabs== 1 ? 'text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1' : 'border-b-2 border-gray-300 py-2 text-lg px-1']">Deskripsi Ringkas</button>
+         <!-- <button @click="tabs=2" class="flex-grow " :class="[tabs== 2 ? 'text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1' : 'border-b-2 border-gray-300 py-2 text-lg px-1']">Pelaksana</button>-->
+
         </div>
-        <div class="min-w-4/5 " v-if="tabs==1">
-          <p class="leading-relaxed mb-4">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam inxigo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean.</p>
+        <div class="min-w-4/5 " >
+          <p class="opacity-0">vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv</p>
+          <p class="leading-relaxed mb-4">{{current_sop.description}}</p>
         </div>
-        
-        <div class="min-w-4/5 " v-if="tabs==2">
-        <div class="flex w-full border-t border-gray-200 py-2">
-          <span class="text-gray-500">Color</span>
+
+        <div class="min-w-4/5 " >
+      {{ current_sop.tag }}
+        <div class="flex w-full border-t border-gray-200 py-2" v-for="tag in current_sop.tags" :key="tag.tag_id">
+          <span class="text-gray-500">{{tag.name}}</span>
           <span class="ml-auto text-gray-900">Blue</span>
         </div>
         <div class="flex border-t border-gray-200 py-2">
@@ -40,7 +42,7 @@
           </button>
         </div>
       </div>
-     
+
     </div>
   </div>
 </section>
@@ -52,7 +54,12 @@ export default {
     props:{
         current_sop:{
             type:Object
-        }
+        },
+         tag_list:{
+            type:Array,
+            default:function(){
+                return []
+            }}
     },
     data(){
       return{

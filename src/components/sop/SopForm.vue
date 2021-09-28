@@ -32,13 +32,15 @@
                 </button>
             </div>
         </div>
+
         <div class="flex items-center  mb-4 space-x-12 bg-white rounded-lg">
+
             <form @submit.prevent="postSop" enctype='multipart/form-data' >
                             <section class="text-gray-600 body-font relative">
                 <div class="container px-5 py-5 mx-auto">
                     <div class="flex flex-col text-center w-full mb-12">
                         <h5 class="sm:text-xl text-2xl font-medium title-font mb-3text-gray-900">Standar Operasional
-                            Prosedur</h5>
+                            Prosedur    </h5>
                         <p class="lg:w-2/3 text-sm mx-auto leading-relaxed text-gray-400 ">Menambahkan standar
                             operasional prosedur baru.</p>
                     </div>
@@ -79,7 +81,7 @@
                                 <div class="relative">
 
 
-                                    <label for="message" class="leading-7 text-sm text-gray-600"  >Pihak - Pihak yang terlibat</label>
+                                    <label for="message" class="leading-7 text-sm text-gray-600 "  >Pelaksana : </label>
                                      <table class="flex w-full text-xs" >
                                          <tbody>
                                         <tr class="font-semibold items-center ">
@@ -191,16 +193,22 @@ export default {
 
         //ModalsContainer
     },
+    props:{
+        current_sop:{
+            type:Object
+        }
+    },
     data() {
         return {
             show: false,
             sop_form: {
-                title: '',
-                description: '',
+                title: this.current_sop.title ?? '',
+                description: this.current_sop.description ?? '',
                 tags_id: [],
 
             },
-            sop_file:''
+            sop_file:'',
+
         }
     },
     methods: {
@@ -221,28 +229,64 @@ export default {
         async postSop(){
 
            const header={"Content-Type": "multipart/form-data"}
-           const url='/sops';
-           const formData = new FormData();
+              const url='/sops';
+            const formData = new FormData();
 
-           formData.append("sop_file",this.sop_file)
+            formData.append("sop_file",this.sop_file)
            formData.append('title',this.sop_form.title)
            formData.append('description',this.sop_form.description)
            formData.append('tags_id',this.sop_form.tags_id)
+            if (this.current_sop.id) {
+               formData.append('id',this.current_sop.id)
+               console.log("update..")
+               console.log(this.current_sop.id)
+                const url_update = '/sops/update'
+
+               await axios.post(url_update,
+                   formData, {
+                       headers: header
+                   }).then((response) => {
+                   if (response.status === 200) {
+                       const result = response.data
+                       console.log(result)
+                       this.resetStateSop()
+                   }
+               })
+           }else{
+
+               await axios.post(url,
+
+                   formData, {
+                       headers: header
+                   }).then((response) => {
+                   if (response.status === 200) {
+                       const result = response.data
+                       console.log(result)
+                       this.resetStateSop()
+                   }
+               })
+
+           }
 
 
-            console.log(formData)
-           await axios.post(url,
 
-             formData,
-            {
-                headers:header
-            })
+
+
+
+
+
+
+
 
         },
        handleFileUpload(e){
          //  alert("wow")
         this.sop_file = e.target.files[0];
-      }
+      },
+
+
+    },
+    beforeUpdate(){
 
     }
 }

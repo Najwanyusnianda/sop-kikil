@@ -6,12 +6,12 @@
 
 
         </header>-->
-        
-    <v-tailwind-modal v-model="show_modal" @confirm="confirm" @cancel="cancel">
-      <template v-slot:title></template>
-      <sop-detail :current_sop="current_sop"></sop-detail>
-    </v-tailwind-modal>
 
+    <v-tailwind-modal v-model="show_modal" @confirm="confirm" @cancel="cancel" class="flex w-full">
+      <template v-slot:title></template>
+      <sop-detail :current_sop="current_sop" ></sop-detail>
+    </v-tailwind-modal>
+{{ current_sop }}
     <button @click="openModal" >show modal</button>
         <!------------------------ Main Section -->
         <div class=" bg-gray-100 pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
@@ -20,7 +20,7 @@
                     <div class="mb-4 wowz" v-if="tabs_menu.is_list_sop">
                         <div v-if="is_form_sop">
 
-                            <sop-form @showSopForm="showSopForm"></sop-form>
+                            <sop-form @showSopForm="showSopForm" :current_sop="current_sop"></sop-form>
                         </div>
                         <div class="" v-else >
                             <sop-crud @showSopForm="showSopForm"
@@ -50,6 +50,7 @@ import SopForm from '../../components/sop/SopForm.vue'
 import SopDetail from '../../components/sop/SopDetail.vue'
 import axios from 'axios'
 import VTailwindModal from '../../components/utils/VTailwindModal.vue'
+
 //import TabsMenu from '../../components/sop/TabsMenu.vue'
 
 export default {
@@ -59,7 +60,7 @@ export default {
         SopCrud,
         SopForm,
         VTailwindModal,
-        SopDetail
+        SopDetail,
 
     },
     name: 'StandarProsedur',
@@ -74,7 +75,8 @@ export default {
             is_form_sop:false,
             sops:[],
             tags:[],
-            current_sop:''
+            current_sop:'',
+
         }
     },
     methods: {
@@ -109,7 +111,10 @@ export default {
 
             if(this.is_form_sop){
                 this.is_form_sop = false
+                this.current_sop=''
+                this.fetchSops()
             }else{
+                this.current_sop=''
                 this.is_form_sop=true
             }
 
@@ -126,7 +131,7 @@ export default {
               this.$store.commit('SET_LOADING',false)
           })
         },
-        async updateSop(id){
+        async getSelectedSop(id){
             const url=`/sops/${id}`
             await axios.get(url).then((response)=>{
                 const result = response.data
@@ -136,11 +141,36 @@ export default {
                 }
             })
         },
-        detailSop(id){
-            this.$emit("detailSop",id)
+        async updateSop(id){
+            await this.getSelectedSop(id)
+            this.is_form_sop=true
         },
-        deleteSop(id){
-            this.$emit("deleteSop",id)
+        async detailSop(id){
+            await this.getSelectedSop(id)
+            this.openModal()
+        },
+        async deleteSop(id){
+
+        await this.getSelectedSop(id)
+            this.$swal.fire({
+                title:'Hapus SOP?',
+                icon:'warning',
+                showCancelButton:true,
+                confirmButtonColor:"#B91C1C",
+                cancelButtonColor: "#6B7280",
+
+            }).then(async (result)=>{
+                    const url=`sops/${id}`
+                    console.log(result)
+                    await axios.delete(url)
+                    .then((response)=>{
+                        if(response.status===200){
+                            this.fetchSops()
+                        }
+                    }).catch((error)=>{
+                        console.log(error)
+                    })
+            })
         }
 
     },

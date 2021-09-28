@@ -19,6 +19,7 @@
     "dayjs": "^1.10.6",
     "litepie-datepicker": "^1.0.14",
     "postcss": "^7",
+    "sweetalert2": "^11.1.7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^3.0.0",
     "vue-chart-3": "^0.5.8",
@@ -27,6 +28,7 @@
     "vue-good-table": "^2.21.10",
     "vue-loading-overlay": "^4.0.4",
     "vue-router": "^4.0.0-0",
+    "vue-sweetalert2": "^5.0.2",
     "vue3-table-lite": "^1.0.6",
     "vuex": "^4.0.0-0"
   },
