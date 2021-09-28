@@ -16,24 +16,21 @@
         </div>
 
         <div class="min-w-4/5 " >
-      {{ current_sop.tag }}
-        <div class="flex w-full border-t border-gray-200 py-2" v-for="tag in current_sop.tags" :key="tag.tag_id">
+<button @click="tabs=2" class="flex-grow " :class="[tabs== 1 ? 'text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1' : 'border-b-2 border-gray-300 py-2 text-lg px-1']">Pelaksana</button>
+        <div class="flex w-full border-b border-gray-200 py-2" v-for="tag in current_sop.tags" :key="tag.tag_id">
           <span class="text-gray-500">{{tag.name}}</span>
-          <span class="ml-auto text-gray-900">Blue</span>
+          <span class="ml-auto text-blue-900 opacity-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+          </span>
         </div>
-        <div class="flex border-t border-gray-200 py-2">
-          <span class="text-gray-500">Size</span>
-          <span class="ml-auto text-gray-900">Medium</span>
-        </div>
-        <div class="flex border-t border-b mb-6 border-gray-200 py-2">
-          <span class="text-gray-500">Quantity</span>
-          <span class="ml-auto text-gray-900">4</span>
-        </div>
+
 
         </div>
 
-        <div class="flex">
-          <span class="title-font font-medium text-2xl text-gray-900">$58.00</span>
+        <div class="flex mt-5">
+          <span class="title-font font-medium text-xs text-gray-600">Terakhir diperbarui :</span>
           <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Download</button>
           <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">

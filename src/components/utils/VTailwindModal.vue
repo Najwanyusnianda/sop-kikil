@@ -1,10 +1,10 @@
 <template>
   <vue-final-modal
-    :resize-directions="['t', 'b']"
+    :resize-directions="['b']"
 
     v-slot="{ params, close }"
     v-bind="$attrs"
-    classes="flex justify-center items-center min-w-full items-center m-auto h-4/5"
+    classes="justify-center items-center  m-auto w-3/5 max-w-3/5  h-4/5"
     content-class="relative flex flex-col  max-h-full mx-4 p-4 border dark:border-gray-800 rounded bg-white dark:bg-gray-900"
     v-on="$attrs"
   >

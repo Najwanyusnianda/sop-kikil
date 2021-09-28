@@ -61,22 +61,20 @@
 
             <div class="bg-white  flex items-center justify-center  shadow-lg rounded-2xl">
                 <div class="w-full   sm:rounded-lg ">
-                              <table class="min-w-full divide-y divide-gray-200">
+                              <table class="min-w-full divide-y divide-gray-200 w-4/5 overflow-scroll table-fixed ">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" class=" w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Judul
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" class="w-2/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider block ">
                   deskripsi
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Update Terakhir
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 
-                </th>
-                <th scope="col" class="relative px-6 py-3">
+                <th scope="col" class="w-1/5 relative px-6 py-3">
                   <span class="sr-only">Edit</span>
                 </th>
               </tr>
@@ -87,9 +85,9 @@
                     {{ sop.title }} {{ sop.id }}
                 </td>
 
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td class="px-6 py-4 whitespace-nowrap break-words">
 
-                    {{ sop.description }}
+                   <p class="truncate ...">{{ sop.description }}</p>
 
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -168,7 +166,7 @@ export default {
                     "id":sop.id,
                     "title":sop.title,
                     "file_url":sop.file_url,
-                    "description":sop.description,
+                    "description":this.text_truncate(sop.description,60),
                     "img_url":'',
                     "updated":dayjs(sop.updated_at).format('YYYY-MM-DD HH:mm:ss'),
                     "tags":tags
@@ -194,7 +192,20 @@ export default {
         deleteSop(id){
 
             this.$emit("deleteSop",id)
-        }
+        },
+        text_truncate(str, length, ending) {
+    if (length == null) {
+      length = 100;
+    }
+    if (ending == null) {
+      ending = '...';
+    }
+    if (str.length > length) {
+      return str.substring(0, length - ending.length) + ending;
+    } else {
+      return str;
+    }
+  }
 
     }
 

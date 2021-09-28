@@ -1,53 +1,35 @@
 <template>
 
 <div class="w-full">
-    <!--<div class="flex justify-between">
-                        <p class="font-semibold text-md p-4 text-gray-700 dark:text-white">
-            Hasil Pencarian : 'kegiatan'
-            <span class="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">
-                (20)
-            </span>
-        </p>
-    </div>-->
-    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full ">
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto ">
+    <div v-for="sop in sops" :key="sop.id" class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col ">
+      <div class="sm:w-16 sm:h-16 w-16 h-16 sm:mr-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="sm:w-8 sm:h-8 w-8 h-8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
 
-        <div class="block m-auto px-5">
-
-        </div>
-        <ul v-if="sop_list.length >0" class="  divide-y divide-gray-200 overflow-scroll ">
-
-                        <li v-for="item in sop_list" :key=item.id >
-                <a class="block hover:bg-gray-50 dark:hover:bg-gray-900">
-                    <div class="px-4 py-4 sm:px-6">
-                        <div class="flex items-center justify-between">
-                            <p class="text-md text-gray-700 dark:text-white md:truncate">
-                                {{ item.sop_name }}
-                            </p>
-                            <div class="ml-2 flex-shrink-0 flex">
-                                <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Backlog
-                                </p>
-                            </div>
-                        </div>
-                        <div class="mt-2 sm:flex sm:justify-between">
-                            <div class="sm:flex">
-                                <p class="flex items-center text-md font-light text-gray-500 dark:text-gray-300">
-                                    December 10, 2020
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-
-
-        </ul>
+      </div>
+      <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+        <h2 class="text-gray-900 text-lg title-font font-medium mb-2">{{sop.title}}</h2>
+        <p class="leading-relaxed text-base">{{sop.description}}</p>
+        <a class="mt-3 text-indigo-500 inline-flex items-center">Detail
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
     </div>
+
+    <button class="flex mx-auto mt-20 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Lihat lebih banyak</button>
+  </div>
+</section>
 </div>
 
 </template>
 
 <script>
+import dayjs from 'dayjs'
 export default {
     name:'SopList',
     props:{
@@ -69,6 +51,43 @@ export default {
     },
     data(){
 
+    },
+    computed: {
+        sops() {
+            return this.sop_list.map((sop) => {
+                let tags = this.tags_list.filter((tag) => {
+                    return tag.sop_id == sop.id
+                })
+                return {
+                    "id": sop.id,
+                    "title": sop.title,
+                    "file_url": sop.file_url,
+                    "description":  this.text_truncate(sop.description,200),
+                    "img_url": '',
+                    "updated": dayjs(sop.updated_at).format('YYYY-MM-DD HH:mm:ss'),
+                    "tags": tags
+
+
+                }
+
+            })
+        }
+    },
+    methods:{
+                text_truncate(str, length, ending) {
+    if (length == null) {
+      length = 100;
     }
+    if (ending == null) {
+      ending = '...';
+    }
+    if (str.length > length) {
+      return str.substring(0, length - ending.length) + ending;
+    } else {
+      return str;
+    }
+  }
+    }
+
 }
 </script>
