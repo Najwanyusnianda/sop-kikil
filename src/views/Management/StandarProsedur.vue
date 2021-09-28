@@ -6,6 +6,13 @@
 
 
         </header>-->
+        
+    <v-tailwind-modal v-model="show_modal" @confirm="confirm" @cancel="cancel">
+      <template v-slot:title></template>
+      <sop-detail :current_sop="current_sop"></sop-detail>
+    </v-tailwind-modal>
+
+    <button @click="openModal" >show modal</button>
         <!------------------------ Main Section -->
         <div class=" bg-gray-100 pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
             <div class="flex flex-col flex-wrap justify-start sm:flex-row ">
@@ -40,8 +47,9 @@
 
 import SopCrud from '../../components/sop/SopCrud.vue'
 import SopForm from '../../components/sop/SopForm.vue'
+import SopDetail from '../../components/sop/SopDetail.vue'
 import axios from 'axios'
-
+import VTailwindModal from '../../components/utils/VTailwindModal.vue'
 //import TabsMenu from '../../components/sop/TabsMenu.vue'
 
 export default {
@@ -49,12 +57,15 @@ export default {
         //TabsMenu,
         //SopList,
         SopCrud,
-        SopForm
+        SopForm,
+        VTailwindModal,
+        SopDetail
 
     },
     name: 'StandarProsedur',
     data() {
         return {
+            show_modal:false,
             tabs_menu: {
                 is_list_sop: true,
                 is_add_sop: false,
@@ -82,6 +93,17 @@ export default {
                 return
 
             }
+        },
+        openModal(){
+             this.show_modal=true
+        },
+        confirm() {
+            // some code...
+            this.show_modal = false
+        },
+        cancel(close) {
+            // some code...
+            close()
         },
         showSopForm(){
 

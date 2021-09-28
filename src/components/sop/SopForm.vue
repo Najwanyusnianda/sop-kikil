@@ -1,6 +1,6 @@
 <template>
-    <div class=" p-4  dark:bg-gray-700 w-">
-           <v-tailwind-modal v-model="show" @confirm="confirm" @cancel="cancel">
+    <div class=" p-4  dark:bg-gray-700 w-full">
+    <v-tailwind-modal v-model="show" @confirm="confirm" @cancel="cancel">
       <template v-slot:title>Hello, vue-final-modal</template>
       <p>Vue Final Modal is a renderless, stackable, detachable and lightweight modal component.</p>
     </v-tailwind-modal>
