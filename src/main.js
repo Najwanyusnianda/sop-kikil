@@ -12,8 +12,22 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 createApp(App).use(router).use(store)
+.use(axios.defaults.baseURL='http://127.0.0.1:8000/api/')
 .use(
-    axios.defaults.baseURL='http://127.0.0.1:8000/api/'
+
+    axios.interceptors.response.use(undefined, function (error) {
+
+        if (error) {
+          const originalRequest = error.config;
+          if (error.response.status === 401 && !originalRequest._retry) {
+
+           // console.log(error.config)
+              originalRequest._retry = true;
+              store.dispatch('logout')
+              return router.push('/login')
+          }
+        }
+      })
 )
 .use(VueSweetalert2)
 .use(dayjs)

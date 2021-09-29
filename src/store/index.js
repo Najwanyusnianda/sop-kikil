@@ -8,9 +8,10 @@ axios.defaults.baseURL='http://127.0.0.1:8000/api/'
 
 export default createStore({
   state: {
-    user:null,
+    user: null,
     loggingIn:false,
-    loginError:null,
+    loginError: null,
+    loginSuccessful: false,
     showModal:false,
     is_loading:false,
 
@@ -21,6 +22,22 @@ export default createStore({
     ]
   },
   mutations: {
+    SET_USER(state,user){
+
+      state.user= user
+      localStorage.setItem('user',JSON.stringify(user))
+      axios.defaults.headers.common.Authorization= `Bearer ${user.token}`
+    },
+    LOGIN_START: state => state.loggingIn = true,
+    LOGIN_STOP: (state, errorMessage) => {
+      state.loggingIn = false;
+      state.loginError = errorMessage;
+      state.loginSuccessful = !errorMessage;
+    },
+    CLEAR_USER(){
+      localStorage.removeItem('user')
+      location.reload()
+    },
     SET_LOADING(state,payload){
       state.is_loading=payload
     },
@@ -31,6 +48,23 @@ export default createStore({
 
   },
   actions: {
+    login({commit},credentials){
+      //alert("start")
+      commit('LOGIN_START');
+      return axios.post('/login',credentials)
+      .then(({data})=>{
+        console.log("logindata:")
+        console.log(data)
+        commit('LOGIN_STOP', null)
+        commit('SET_USER',data)
+      })
+    },
+    logout({commit}){
+      commit('CLEAR_USER')
+    },
+
+
+
     changeMonth({commit},selected_month){
       commit('SET_MONTH',selected_month)
     },
@@ -44,6 +78,13 @@ export default createStore({
       return state.months.map((month)=>{
           return month.name
       })
-    }
+    },
+    isLogged:(state)=> !!state.user,
+    getUser:(state)=>{
+      if(state.user){
+        return state.user.user
+      }
+
+    },
   }
 })

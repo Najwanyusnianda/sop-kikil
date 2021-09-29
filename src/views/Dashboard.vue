@@ -1,6 +1,47 @@
 <template>
 
-  <main class="bg-gray-100 dark:bg-gray-800 rounded-2xl h-screen w-full  relative p-auto">
+  <main class="bg-white dark:bg-gray-800 rounded-2xl h-screen w-full  relative p-auto">
+
+            <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center">
+               <!-- <span class="rounded-xl relative p-2 bg-blue-100">
+
+                </span>-->
+                <div class="ml-5 flex flex-col mt-10">
+                    <span class="font-bold text-2xl text-gray-800 dark:text-white ml-2">
+                        Dashboard
+                    </span>
+                    <span class="text-sm text-gray-500 dark:text-white ml-2">
+
+                    </span>
+                </div>
+
+            </div>
+            <div class="flex items-center">
+
+               <!-- <select
+                    class="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    name="month">
+                    <option value="">
+                        Pilih Bulan
+                    </option>
+                    <option :value="month.value" v-for="month in months" :key="month.value">
+                        {{ month.name }}
+                    </option>
+
+
+                </select>-->
+
+                <button class="text-gray-200">
+                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M1088 1248v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
     <div class="flex items-start justify-between">
 
       <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
@@ -46,7 +87,8 @@
             <div class="w-full sm:w-1/2 xl:w-2/3">
             <!-- monitoring task list -->
               <div class="mb-4 ">
-                  <monitoring-task :current_month="current_month"></monitoring-task>
+                  <realisasi-anggaran :months ="months"></realisasi-anggaran>
+
               </div>
                <!-- rencana penarikan-->
 
@@ -57,11 +99,11 @@
             <div class="w-full sm:w-1/2 xl:w-1/3">
             <!-- monitoring realisasi anggaran-->
               <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
-                <realisasi-anggaran :months ="months"></realisasi-anggaran>
+
               </div>
               <!-- rencana sop-->
               <div class="mb-4 sm:ml-4 xl:mr-4">
-
+                <monitoring-task :current_month="current_month"></monitoring-task>
               </div>
             </div>
 

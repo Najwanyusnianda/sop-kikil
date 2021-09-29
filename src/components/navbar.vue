@@ -42,14 +42,18 @@
             <!-- Current: "bg-gray-900 text-gray-900", Default: "text-gray-700 hover:bg-gray-700 hover:text-gray-900" -->
 
             <router-link v-for="item in navigation" :key="item.name"
-              :to="{name:item.href}"  :class="[item.current ? 'bg-blue-600 text-white  px-3 py-2 rounded-md text-sm font-medium' : 'hover:text-blue-600 text-gray-700 px-3 py-2 rounded-md text-sm font-medium']" class=""
-            >  {{ item.name }} </router-link>
+              :to="{name:item.href}"  :class="[item.current ? 'bg-white text-blue-600 font-bold  px-3 py-2 rounded-md text-sm ' : 'hover:text-blue-600 text-gray-700 px-3 py-2 rounded-md text-sm font-medium']" class=""
+            >    <span>{{ item.name }} </span>
+
+            </router-link>
 
 
 
           </div>
         </div>
       </div>
+
+        <span v-if="user"> {{user.firstname}} </span>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <button type="button" class="bg-white p-1 rounded-full text-gray-400 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-300">
           <span class="sr-only">View notifications</span>
@@ -78,43 +82,49 @@
               From: "transform opacity-100 scale-100"
               To: "transform opacity-0 scale-95"
           -->
-          <div   class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" v-if="open_profile" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+
+          <div  class="z-50 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" v-if="open_profile" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
             <!-- Active: "bg-gray-100", Not Active: "" -->
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
-          </div>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Profil</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Pengaturan</a>
+            <a href="#"  @click.prevent="pushLogout" v-if="isLogged" cursor-pointer class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Log out</a>
+
+            </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Mobile menu, show/hide based on menu state. -->
+  <!-- MOBILE MENU, show/hide based on menu state. -->
   <div class="sm:hidden" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      <!-- Current: "bg-gray-900 text-gray-900", Default: "text-gray-700 hover:bg-gray-700 hover:text-gray-900" -->
+    <!--<div class="px-2 pt-2 pb-3 space-y-1">
+      Current: "bg-gray-900 text-gray-900", Default: "text-gray-700 hover:bg-gray-700 hover:text-gray-900"
 
       <a href="#" class="bg-gray-900 text-gray-900 block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
 
       <a href="#" class="text-gray-700 hover:bg-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">SOP</a>
 
-      <a href="#" class="text-gray-700 hover:bg-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Manajemen</a>
+      <a href="#" class=" text-gray-700 hover:bg-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Manajemen</a>
 
 
-    </div>
+    </div>-->
   </div>
 </nav>
 </template>
 <style scoped>
-a.router-link-exact-active {
-  @apply bg-blue-600 text-white  px-3 py-2 rounded-md text-sm font-medium
+a.router-link-active {
+  @apply text-blue-600 px-3 py-2 rounded-md text-base font-bold
 }
 </style>
 
 
 <script>
+import {mapGetters,mapActions} from 'vuex'
 export default {
     name:'Navbar',
+        props:{
+      user:Object
+    },
     data(){
         return {
             navigation:[
@@ -125,10 +135,24 @@ export default {
             open_profile:false
         }
     },
+    computed:{
+            ...mapGetters([
+      'isLogged'
+    ]),
+    },
     methods:{
+            ...mapActions([
+            "logout"
+        ]),
+
       openProfile(){
+        console.log(this.open_profile)
         return this.open_profile = !this.open_profile
-      }
+      },
+      pushLogout(){
+         //   alert("ddd")
+      this.logout()
+    }
     }
 
 }

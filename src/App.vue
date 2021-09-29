@@ -6,7 +6,7 @@
 
   <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl flex flex-col flex-1  relative">
 
-    <navbar></navbar>
+    <navbar  :user="getUser"  ></navbar> <!--v-if="isLogged"-->
     <div class="flex flex-col flex-1 w-full h-full bg-gray-100">
     <router-view/>
     </div>
@@ -17,15 +17,33 @@
 <script>
 //import Loading from 'vue-loading-overlay'
 import Navbar from './components/navbar.vue'
-import {mapState} from 'vuex'
+import {mapState,mapGetters,mapActions} from 'vuex'
 export default {
   components:{
     Navbar,
     ///Loading
   },
+  computed:{
+     ...mapState(['current_month','current_year','is_loading']),
+    ...mapGetters(['isLogged', 'getUser'])
+  },
   methods:{
-      ...mapState(['current_month','current_year','is_loading'])
-  }
+    ...mapActions(["logout"]),
+    pushLogout(){
+      this.logout()
+    }
+  },
+    created(){
+    const user=localStorage.getItem('user')
+    if(user){
+      const userData= JSON.parse(user)
+      this.$store.commit('SET_USER',userData)
+    }else{
+      return this.$router.push({
+        name:'Login'
+      })
+    }
+  },
 }
 </script>
 <style>
