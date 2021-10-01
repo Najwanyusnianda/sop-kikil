@@ -11,8 +11,8 @@
       <template v-slot:title></template>
       <sop-detail :current_sop="current_sop" ></sop-detail>
     </v-tailwind-modal>
-{{ current_sop }}
-    <button @click="openModal" >show modal</button>
+
+    <!--<button @click="openModal" >show modal</button>-->
         <!------------------------ Main Section -->
         <div class=" bg-gray-100 pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
             <div class="flex flex-col flex-wrap justify-start sm:flex-row ">

@@ -35,7 +35,7 @@
 </template>
 
 <style scoped>
-a.router-link-exact-active {
+a.router-link-active {
   @apply text-blue-500 bg-gradient-to-r from-white to-blue-100 border-r-4 border-blue-500
 }
 </style>

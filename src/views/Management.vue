@@ -18,6 +18,9 @@ export default {
     name:'Management',
     components:{
         Sidebar
+    },
+    created(){
+        this.$router.push({ name: 'LaporanBulanan' })
     }
 }
 </script>

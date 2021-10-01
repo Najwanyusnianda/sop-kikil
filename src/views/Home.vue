@@ -12,6 +12,9 @@ export default {
   name: 'Home',
   components: {
    // MonitoringTask
+  },
+  created(){
+     this.$router.push({ name: 'LaporanBulanan' })
   }
 }
 </script>

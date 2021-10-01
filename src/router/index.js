@@ -54,8 +54,18 @@ const routes = [
       {
         path:'perencanaan_kinerja',
         name:'PerencanaanKinerja',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Management/PerencanaanKinerja.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Management/PerencanaanKinerja.vue'),
+        children:[{
+          path:'dipa',
+          name:'Dipa',
+          component:() =>import(/* webpackChunkName: "about" */ '../views/Management/perencanaan_kinerja/Dipa.vue'),
+        },{
+          path:'revisi_dipa',
+          name:'RevisiDipa',
+          component:() =>import(/* webpackChunkName: "about" */ '../views/Management/perencanaan_kinerja/RevisiDipa.vue'),
+        }
 
+        ]
       },
       {
         path:'pelaksanaan_anggaran',

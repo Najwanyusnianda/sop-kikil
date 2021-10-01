@@ -2,9 +2,9 @@
     <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
 
         <!-- tab -->
-        <header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40">
+        <!--<header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40">
             <tabs-menu :tabs_menu='tabs_menu' @changedTabs="changeTabs"></tabs-menu>
-        </header>
+        </header>-->
         <!------------------------ Main Section -->
         <div class="  pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
             <div class="flex flex-col flex-wrap justify-start sm:flex-row ">
@@ -31,7 +31,7 @@
 
 //import axios from 'axios'
 
-import TabsMenu from '../../components/monthly_progress/TabsMenu.vue'
+//import TabsMenu from '../../components/monthly_progress/TabsMenu.vue'
 import IkpaList from '../../components/monthly_progress/IkpaList.vue'
 import TaskList from '../../components/monthly_progress/TaskList.vue'
 import TaskForm from '../../components/monthly_progress/TaskForm.vue'
@@ -46,7 +46,7 @@ export default {
 
     name:'LaporanBulanan',
     components:{
-        TabsMenu,
+        //TabsMenu,
         IkpaList,
         TaskList,
         TaskForm,

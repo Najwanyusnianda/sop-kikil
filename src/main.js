@@ -7,7 +7,7 @@ import dayjs from 'dayjs'
 import axios from 'axios'
 import { vfmPlugin } from 'vue-final-modal'
 import VueSweetalert2 from 'vue-sweetalert2';
-
+import('@/assets/main.css');
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css';
 

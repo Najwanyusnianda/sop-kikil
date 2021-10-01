@@ -1,0 +1,38 @@
+<template>
+<template>
+    <div class="bg-white">
+                                      <table class="min-w-full divide-y divide-gray-200 w-4/5 overflow-scroll table-fixed ">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class=" w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Judul
+                </th>
+                <th scope="col" class="w-2/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider block ">
+                  deskripsi
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Update Terakhir
+                </th>
+
+                <th scope="col" class="w-1/5 relative px-6 py-3">
+                  <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+                                      </table>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'Pok',
+    data() {
+        return {
+            kertas_kerja: {
+
+            }
+        }
+    }
+
+}
+</script>

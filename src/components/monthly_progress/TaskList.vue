@@ -7,7 +7,7 @@
                 </span>-->
                 <div class="mr-5 flex flex-col">
                     <span class="font-bold text-2xl text-gray-800 dark:text-white ml-2">
-                        Tugas Rutin Bulanan
+                        Kegiatan Bulanan
                     </span>
                     <span class="text-sm text-gray-500 dark:text-white ml-2">
 
@@ -128,7 +128,9 @@ export default {
         tasks:{
             type:Array,
             default:function(){
-                return []
+                return [{
+
+                }]
             }
         }
     },

@@ -31,7 +31,7 @@
           </svg>
         </button>
       </div>
-      <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+      <div class="flex-1 flex items-center justify-between sm:items-stretch sm:justify-start">
         <div class="flex-shrink-0 flex items-center">
           <div class="font-bold mr-5 mr-5 text-blue-800 text-lg font-mono">S O P K I K I L</div>
           <!--<img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
@@ -42,7 +42,7 @@
             <!-- Current: "bg-gray-900 text-gray-900", Default: "text-gray-700 hover:bg-gray-700 hover:text-gray-900" -->
 
             <router-link v-for="item in navigation" :key="item.name"
-              :to="{name:item.href}"  :class="[item.current ? 'bg-white text-blue-600 font-bold  px-3 py-2 rounded-md text-sm ' : 'hover:text-blue-600 text-gray-700 px-3 py-2 rounded-md text-sm font-medium']" class=""
+              :to="{name:item.href}"  :class="[item.current ? 'bg-white text-blue-600 font-bold  px-3 py-2 rounded-md text-base ' : 'hover:text-blue-600 text-gray-700 px-3 py-2 rounded-md text-base font-medium']" class=""
             >    <span>{{ item.name }} </span>
 
             </router-link>
@@ -53,7 +53,7 @@
         </div>
       </div>
 
-        <span v-if="user"> {{user.firstname}} </span>
+      <span v-if="user"> {{user.firstname}} </span>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <button type="button" class="bg-white p-1 rounded-full text-gray-400 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-300">
           <span class="sr-only">View notifications</span>
