@@ -115,17 +115,17 @@ export default {
     },
     methods: {
         async getTaskList(month) { //async
-            this.$store.commit('is_loading', true)
+            this.$store.commit('SET_LOADING', true)
             const url = `/monthly_withdrawing/${month}`
 
             await axios.get(url)
                 .then((response) => {
                     const res = response.data
                     this.tasks = res.data
-                    this.$store.commit('is_loading', false)
+                    this.$store.commit('SET_LOADING', false)
                 }).catch((error) => {
                     console.log(error)
-                    this.$store.commit('is_loading', false)
+                    this.$store.commit('SET_LOADING', false)
                 })
         }
     }

@@ -11,15 +11,21 @@
                             </path>
                         </svg>
                     </div>
+                    <div class="search flex w-full">
+                        <form class="w-full flex" @submit.prevent="searchProsedur" >
+                                                <input type="text" v-model="search_sop"
+                        class="justify-start block w-3/4 py-1.5 pl-10 pr-4 leading-normal rounded-2xl focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 ring-opacity-90 bg-gray-100 dark:bg-gray-800 text-gray-400 aa-input"
+                        placeholder="Pencarian" />
+                            <button type="submit" class="bg-blue-600 text-white px-4 py-1 ml-2 rounded-md"> Cari</button>
+                        </form>
+                    </div>
                     <svg class="absolute left-0 z-20 hidden w-4 h-4 ml-4 text-gray-500 pointer-events-none fill-current group-hover:text-gray-400 sm:block"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path
                             d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z">
                         </path>
                     </svg>
-                    <input type="text"
-                        class="justify-start block w-3/4 py-1.5 pl-10 pr-4 leading-normal rounded-2xl focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 ring-opacity-90 bg-gray-100 dark:bg-gray-800 text-gray-400 aa-input"
-                        placeholder="Search" />
+
                     <!--  <div
                                 class="absolute right-0 hidden h-auto px-2 py-1 mr-2 text-xs text-gray-400 border border-gray-300 rounded-2xl md:block">
                                 +
@@ -28,33 +34,49 @@
 
 
                 </div>
-                <select
+                <div class="Roles Show">
+                <select @change="filterRole" v-model="selected_role"
                     class="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                    name="animals">
-                    <option value="">
-                        filter
+                    name="role">
+
+                    <option v-for="role in roles" :key="role.kode" :value="role.kode">
+                        {{ role.name }}
                     </option>
-                    <option value="dog">
-                        Pejabat Pembuat Komitmen
-                    </option>
-                    <option value="cat">
-                        Pejabat Penandatangan SPM
-                    </option>
-                    <option value="hamster">
-                        Bendahara Pengeluaran
-                    </option>
-                    <option value="parrot">
-                        Subject Katter
-                    </option>
-                    <option value="spider">
-                        Spider
-                    </option>
-                    <option value="goldfish">
-                        Goldfish
-                    </option>
+
                 </select>
+                </div>
+
             </div>
 
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    name:'SearchMenu',
+    data(){
+        return{
+            roles:[
+            {name:'Semua',kode:0},
+            {name:'Kuasa Pengguna Anggaran',kode:10},
+            {name:'Pejabat Pembuat Komitmen',kode:11},
+            {name:'Pejabat Penandatangan SPM',kode:12},
+            {name:'Bendahara Pengeluaran',kode:13},
+            {name:'Subject Matter',kode:20}],
+            selected_role:0,
+            search_sop:''
+        }
+    },
+    methods:{
+        filterRole(){
+            console.log(this.selected_role)
+        },
+        search_prosedur(){
+            console.log(this.search_sop)
+        }
+
+
+    }
+}
+</script>

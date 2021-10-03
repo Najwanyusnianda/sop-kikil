@@ -1,86 +1,73 @@
 <template>
-    <div class="flex items-center justify-center min-h-full w-5/6 font-theme ">
-        <div class="w-full max-w-md ">
-            <div
-              class="text-gray-800 text-2xl flex justify-center border-b-2  bg-blue-500 py-4 "
-            >
-            <span class="text-white font-bold">
-              Silahkan Login
-            </span>
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div>
 
-            </div>
+      <img class="mx-auto h-30 w-auto" src="../assets/lambang_bps-01.svg" alt="BPS Kabupaten Aceh Singkil">
+      <h2 class="mt-6 text-center text-3xl text-blue-800 font-extrabold tracking-wider ">
+        SOP KIKIL
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        <span class="font-semibold">S</span>tandar <span class="font-semibold">O</span>perasional <span class="font-semibold">P</span>rosedur <span class="font-semibold">Ki</span>nerja Anggaran BPS Kabupaten Aceh Sing<span class="font-semibold">kil</span>
+        <!--<a href="#" class="font-medium text-blue-600 hover:text-blue-500">
+          start your 14-day free trial
+        </a>-->
+      </p>
 
-            <br>
-
-          <form @submit.prevent="pushLogin" class="bg-white shadow-lg rounded px-12 pt-6 pb-8 mb-4 -mt-2 ">
-            <!-- @csrf -->
-
-
-            <div class="mb-4">
-              <label
-                class="block text-gray-700 text-sm font-normal mb-2"
-                for="username"
-              >
-                Username
-              </label>
-              <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:ring-1 focus:outline-none focus:border-blue-500"
-                name="username"
+    </div>
+      <span v-if="loginError" class="p-5 bg-red-200 text-red-800 flex justify-center">{{ loginError }}</span>
+       <span class="bg-green-200 text-green-600" v-if="loginSuccessful">Login Berhasil</span>
+    <form class="mt-8 space-y-6" @submit.prevent="pushLogin">
+      <input type="hidden" name="remember" value="true">
+      <div class="rounded-md shadow-sm -space-y-px">
+        <div>
+          <label for="email-address" class="sr-only">Email address</label>
+          <input    name="username"
                 v-model="auth.username"
-                type="username"
-                required
-                autofocus
-                placeholder="Username"
-              />
-            </div>
-            <div class="mb-6">
-              <label
-                class="block text-gray-700 text-sm font-normal mb-2"
-                for="password"
-              >
-                Password
-              </label>
-              <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:ring-1 focus:outline-none focus:border-blue-500"
+                type="username" required
+                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Username">
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input id="password"
                 v-model="auth.password"
                 type="password"
                 placeholder="Password"
                 name="password"
-                required
-                autocomplete="current-password"
-              />
-            </div>
-            <div class="flex items-center justify-between">
-
-                 <div v-if="!loggingIn" class="container-loading">
-                  <button class="px-4 py-2 rounded text-white inline-block shadow-lg bg-blue-500 hover:bg-blue-600 focus:bg-blue-700" type="submit">Sign In</button>
-                </div>
-                <div v-if="loggingIn" class="container-loading">
-                  <button disabled class="disabled:opacity-50 opacity-50 px-4 py-2 rounded text-white inline-block shadow-lg bg-blue-500 hover:bg-blue-600 focus:bg-blue-700" type="submit">Signing In....</button>
-                </div>
-              <div class="item">
-                              <a
-                class="inline-block align-baseline font-normal text-sm text-blue-500 hover:text-blue-800"
-                href="#"
-              >
-                Daftar
-              </a>
-              |
-              <a
-                class="inline-block align-baseline font-normal text-sm text-blue-500 hover:text-blue-800"
-                href="#"
-              >
-                Lupa Password?
-              </a>
-              </div>
-
-            </div>
-          </form>
-          <br>
-             <span v-if="loginError" class="p-5 bg-red-200 text-red-800 flex justify-center">{{ loginError.message }}</span>
-            <p v-if="loginSuccessful">Login Successful</p>
+          autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" >
         </div>
       </div>
+
+      <div class="flex items-center justify-between">
+        <!--<div class="flex items-center">
+          <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+          <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+            Remember me
+          </label>
+        </div>-->
+
+        <div class="text-sm">
+          Belum terdaftar atau lupa password?
+          <a href="http://wa.me/6282261044800" class="font-medium text-blue-600 hover:text-blue-500">
+            Hubungi Admin
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+            <!-- Heroicon name: solid/lock-closed -->
+            <svg class="h-5 w-5 text-blue-500 group-hover:text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>
+          </span>
+          Sign in
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 </template>
 
 <script>
@@ -111,17 +98,19 @@ export default {
             "login"
         ]),
         pushLogin(){
-          this.$router.push({name:'Dashboard'})
-          this.login(this.auth).then(()=>{
-           // console.log(this.auth)
+         // this.$router.push({name:'Dashboard'})
+          this.login(this.auth).then((response)=>{
+            console.log(response)
             this.$router.push({name:'Dashboard'})
           }).catch(error => {
-        if (error.response.status === 401) {
-          this.$store.commit('LOGIN_STOP', error.response.data)
+            console.log("error:")
+            console.log(error)
+       // if (error.response.status === 401) {
+          this.$store.commit('LOGIN_STOP', "user tidak ditemukan")
             console.log('Failed to login')
-this.$router.push({name:'Dashboard'})
-           // this.$router.push({name:'Login'})
-        }
+//this.$router.push({name:'Dashboard'})
+           //this.$router.push({name:'Login'})
+       // }
 
       })
         }

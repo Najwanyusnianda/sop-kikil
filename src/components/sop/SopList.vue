@@ -1,27 +1,60 @@
 <template>
 
 <div class="w-full">
-<section class="text-gray-600 body-font">
-  <div class="container px-5 py-24 mx-auto ">
-    <div v-for="sop in sops" :key="sop.id" class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col ">
-      <div class="sm:w-16 sm:h-16 w-16 h-16 sm:mr-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="sm:w-8 sm:h-8 w-8 h-8" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
+      <v-tailwind-modal v-model="show_modal" @confirm="confirm"  class="flex w-full">
+      <template v-slot:title></template>
+      <sop-detail :current_sop="current_sop" ></sop-detail>
+    </v-tailwind-modal>
+<section class="text-gray-600 body-font" v-if="sops.length > 0">
+  <div class="container   bg-white px-5 py-24 mx-auto ">
+    <div class="justify-center flex mx-auto w-full ">
+        <table class="table-auto  ">
+      <thead>
+        <tr>
+          <th></th>
+          <th><span class="opacity-0">spacing only</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b " v-for="sop in sops" :key="sop.id">
+          <td class="flex flex-col pb-4 mr-5">
+            <a href="#" @click.prevent="detailSop(sop.id)" class="text-base font-semibold hover:text-blue-500"> {{sop.title}} </a>
+            <span class="text-xs text-gray-400"> {{ sop.updated }} </span>
+            <div class="pt-4 w-1/3">
+              <span v-for="tag in sop.tags" :key="tag.tag_id" class="px-2 py-1  items-center  text-xs rounded-md text-gray-500 bg-gray-200 mx-1">{{tag.name}}</span>
 
-      </div>
-      <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-        <h2 class="text-gray-900 text-lg title-font font-medium mb-2">{{sop.title}}</h2>
-        <p class="leading-relaxed text-base">{{sop.description}}</p>
-        <a class="mt-3 text-indigo-500 inline-flex items-center">Detail
-          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
-        </a>
-      </div>
+            </div>
+          </td>
+          <td></td>
+          <td class="ml-5 text-xs">
+
+
+<button @click="download_sop" type="button" class="py-2 px-4 flex justify-center items-center  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-xs shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+</svg>
+    Download
+</button>
+
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
     </div>
 
-    <button class="flex mx-auto mt-20 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Lihat lebih banyak</button>
+
+
+    <button class="flex mx-auto mt-20 text-white bg-blue-500 border-0 py-2 px-8 text-sm focus:outline-none hover:bg-blue-600 rounded ">Lihat lebih banyak</button>
+  </div>
+</section>
+
+<section v-else>
+  <div class="container bg-white px-5 py-24 mx-auto">
+    <div class="justify-center flex mx-auto w-full">
+      Sop Tidak Ditemukan
+    </div>
   </div>
 </section>
 </div>
@@ -29,9 +62,16 @@
 </template>
 
 <script>
+import SopDetail from '../../components/sop/SopDetail.vue'
+import VTailwindModal from '../../components/utils/VTailwindModal.vue'
 import dayjs from 'dayjs'
+import axios from 'axios'
 export default {
     name:'SopList',
+    components:{
+      SopDetail,
+      VTailwindModal
+    },
     props:{
         sop_list:{
             type:Array,
@@ -50,7 +90,10 @@ export default {
 
     },
     data(){
-
+      return {
+        show_modal:false,
+        current_sop:'',
+      }
     },
     computed: {
         sops() {
@@ -73,20 +116,45 @@ export default {
             })
         }
     },
-    methods:{
-                text_truncate(str, length, ending) {
-    if (length == null) {
-      length = 100;
-    }
-    if (ending == null) {
-      ending = '...';
-    }
-    if (str.length > length) {
-      return str.substring(0, length - ending.length) + ending;
-    } else {
-      return str;
-    }
-  }
+    methods: {
+      openModal(){
+             this.show_modal=true
+        },
+        confirm() {
+            // some code...
+            this.show_modal = false
+      },
+      text_truncate(str, length, ending) {
+        if (length == null) {
+          length = 100;
+        }
+        if (ending == null) {
+          ending = '...';
+        }
+        if (str.length > length) {
+          return str.substring(0, length - ending.length) + ending;
+        } else {
+          return str;
+        }
+      },
+      download_sop(){
+
+      },
+      async getSelectedSop(id){
+            const url=`/sops/${id}`
+            await axios.get(url).then((response)=>{
+                const result = response.data
+                if(result.success){
+                    this.current_sop=result.data
+
+                }
+            })
+        },
+
+              async detailSop(id){
+            await this.getSelectedSop(id)
+            this.openModal()
+        },
     }
 
 }

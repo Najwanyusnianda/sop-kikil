@@ -1,6 +1,6 @@
 <template>
 
-  <main class="bg-gray-100 dark:bg-gray-800 rounded-2xl  w-full overflow-autorelative p-auto">
+  <main class="bg-gray-100 dark:bg-gray-800 rounded-2xl  w-full overflow-auto h-screen relative p-auto">
     <div class="flex items-center justify-center">
 
       <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4">

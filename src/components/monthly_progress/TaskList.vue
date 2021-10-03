@@ -6,7 +6,7 @@
 
                 </span>-->
                 <div class="mr-5 flex flex-col">
-                    <span class="font-bold text-2xl text-gray-800 dark:text-white ml-2">
+                    <span class="font-semibold text-base text-gray-800 dark:text-white ml-2">
                         Kegiatan Bulanan
                     </span>
                     <span class="text-sm text-gray-500 dark:text-white ml-2">
@@ -14,7 +14,7 @@
                     </span>
                 </div>
                             <span class="px-2 py-1 flex items-center font-semibold text-xs rounded-md text-gray-500 bg-gray-200">
-                September 2021
+                                {{ current_month.name }} {{ current_year }}
             </span>
             </div>
             <div class="flex items-center">
@@ -142,7 +142,7 @@ export default {
         }
     },
     computed:{
-        ...mapState(['months','current_month']),
+        ...mapState(['months','current_month','current_year']),
         map_tasks(){
           console.log(this.tasks)
             return this.tasks.map((task)=>{

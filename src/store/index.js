@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 //import dayjs from 'dayjs'
+//import dayjs from 'dayjs'
 
 
 
@@ -15,7 +16,7 @@ export default createStore({
     showModal:false,
     is_loading:false,
 
-    current_month:{name:'Oktober', value:10},
+    current_month:'',
     current_year:2021,
     months:[
       {name:'Januari', value:1},{name:'Februari', value:2},{name:'Maret', value:3},{name:'April', value:4},{name:'Mei', value:5},{name:'Juni', value:6},{name:'Juli', value:7},{name:'Agustus', value:8},{name:'September', value:9},{name:'Oktober', value:10},{name:'November', value:11},{name:'Desember', value:12},
@@ -52,11 +53,16 @@ export default createStore({
       //alert("start")
       commit('LOGIN_START');
       return axios.post('/login',credentials)
-      .then(({data})=>{
-        console.log("logindata:")
-        console.log(data)
-        commit('LOGIN_STOP', null)
-        commit('SET_USER',data)
+      .then((response)=>{
+        const result = response.data;
+        if(!result.success){
+
+          commit('LOGIN_STOP', result.message)
+        }else{
+          commit('SET_USER',response.data)
+        }
+
+
       })
     },
     logout({commit}){
@@ -86,5 +92,6 @@ export default createStore({
       }
 
     },
+
   }
 })

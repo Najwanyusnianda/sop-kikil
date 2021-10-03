@@ -14,6 +14,29 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 createApp(App).use(router).use(store)
 .use(axios.defaults.baseURL='http://127.0.0.1:8000/api/')
 .use(
+  router.beforeEach((to,from,next)=>{
+
+    const loggedIn =localStorage.getItem('user')
+    if(to.matched.some(record=>record.meta.requiresAuth) && !loggedIn){
+     // alert("aa")
+      next('/login')
+
+    }else{
+      if(to.name =='Login' &&  loggedIn){
+       // alert("bb")
+        next({name:'Dashboard'})
+      }else{
+
+        //alert("cc")
+        next()
+        //this.store.commit('LOGIN_STOP', "user tidak ditemukan")
+
+      }
+
+    }
+  })
+)
+.use(
 
     axios.interceptors.response.use(undefined, function (error) {
 
@@ -23,8 +46,9 @@ createApp(App).use(router).use(store)
 
            // console.log(error.config)
               originalRequest._retry = true;
-              store.dispatch('logout')
-              return router.push('/login')
+              //store.dispatch('logout')
+
+              return this.store.commit('LOGIN_STOP', "user tidak ditemukan")
           }
         }
       })

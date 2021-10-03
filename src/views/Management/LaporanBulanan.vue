@@ -5,22 +5,38 @@
         <!--<header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40">
             <tabs-menu :tabs_menu='tabs_menu' @changedTabs="changeTabs"></tabs-menu>
         </header>-->
+                <div class="flex items-center justify-between">
+            <span class="font-bold text-2xl text-gray-800 dark:text-white ml-2 -mt-1 mr-5">Kinerja Bulanan</span>
+
+                    <header class="w-1/3  shadow-lg bg-white dark:bg-gray-700 -mt-5 items-center h-12 rounded-2xl z-40">
+
+            <div class="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center">
+
+                <div class="relative items-center pl-1 flex w-2/3 lg:max-w-68 sm:pr-2 sm:ml-0">
+                    <div class="inline-flex w-full px-1 pt-2">
+                        <router-link v-for="nav in navigation" :key="nav.href"  :to="{name:nav.href}"
+                            class="mx-1 py-2 px-4 flex justify-center items-center   hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-800 w-1/3 my-5  transition ease-in duration-200 text-center text-base font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2  w-12 h-12 rounded-lg ">
+                          <!-- <span v-html="nav.icon"></span>-->
+                          <span>{{nav.desc}}</span>
+                        </router-link>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+        </header>
+
+
+        </div>
         <!------------------------ Main Section -->
         <div class="  pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
             <div class="flex flex-col flex-wrap justify-start sm:flex-row ">
                 <div class="w-full ">
-                    <div class="mb-4" v-if="tabs_menu.is_rutin_tabs">
-                        <div class="" v-if="selected_task_indicator =='' ">
-                            <task-list @selectInd="entriTask" :tasks="tasks"></task-list>
-                        </div>
-                        <div class="" v-else >
-                             <task-form @removeTaskState="changeTaskState" :task="selected_task" @updatedTaskStatus="updatedTaskStatus"></task-form>
-                        </div>
-
-                    </div>
-                    <div class="mb-4" v-else>
-                        <ikpa-list :ikpas="ikpas"></ikpa-list>
-                    </div>
+                    <router-view></router-view>
                 </div>
 
             </div>
@@ -31,13 +47,10 @@
 
 //import axios from 'axios'
 
-//import TabsMenu from '../../components/monthly_progress/TabsMenu.vue'
-import IkpaList from '../../components/monthly_progress/IkpaList.vue'
-import TaskList from '../../components/monthly_progress/TaskList.vue'
-import TaskForm from '../../components/monthly_progress/TaskForm.vue'
+
 //import Loading from 'vue-loading-overlay';
-import axios from 'axios'
-import {mapState} from 'vuex'
+//import axios from 'axios'
+
 
 //axios.defaults.baseURL='http://127.0.0.1:8000'
 //import { mapState } from 'vuex'
@@ -46,104 +59,34 @@ export default {
 
     name:'LaporanBulanan',
     components:{
-        //TabsMenu,
-        IkpaList,
-        TaskList,
-        TaskForm,
+
         //Loading
 
     },
     data(){
         return{
-            tabs_menu:{
-                is_rutin_tabs:true,
 
-            },
+            navigation:[
+                { name:'Rutin Bulanan',href:'RutinBulanan',desc:'Kegiatan' ,icon:'<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /> </svg>'},
+                { name:'Ikpa',href:'Ikpa',desc:'IKPA',icon:' <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /> {{ nav.name }} </svg>'},
 
-            selected_task_indicator:'',
-            selected_ikpa_indicator:'',
-            selected_task:'',
-            tasks:[],
-            ikpas:[
-                {indicator_id:'1001',name:'Revisi DIPA', bobot:5,tanggal_update:'2021-10-09',is_complete:true},
-                {indicator_id:'1002',name:'Deviasi Halaman III DIPA', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'1003',name:'Pagu Minus', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'2001',name:'Penyampaian Data Kontrak', bobot:5,tanggal_update:'2021-10-09',is_complete:true},
-                {indicator_id:'2002',name:'Pengelolaan UP dan TUO', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'2003',name:'Penyampaian LPJ Bendahara', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'2004',name:'Dispensasi SPM', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'3001',name:'Penyerapan Anggaran', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'3002',name:'Penyelesaian Tagihan', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'3003',name:'Capaian Output', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'3004',name:'Retur SP2D', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'3003',name:'Pengembalian SPM', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'3004',name:'Perencanaan Kas', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
+
             ],
 
         }
     },
     computed:{
-        ...mapState(['current_month','current_year','is_loading'])
+
     },
     methods:{
-     async entriTask(indicator_id){//async
-            /*const url='/get_task/'+indicator_id
-            await  axios.get(url,{}).then((response)=>{
-                //console.log(response.data)
-                this.selected_task=response.data
-                this.selected_task_indicator=this.selected_task.id
-            })*/
-            const url=`/monthly_progress/task/${indicator_id}`
-            await axios.get(url).then((response)=>{
-                //console.log(response.data)
-                const result=response.data
-                if(result.success){
-                this.selected_task=result.data
-                console.log('this.selected_task:')
-                console.log(this.selected_task)
-                this.selected_task_indicator=this.selected_task.id
-                }
 
-
-            }).catch((error)=>{
-                console.log(console.log(error))
-            })
-
-            this.selected_task_indicator=indicator_id
-        },
-        changeTabs(kode_tabs){
-            console.log(kode_tabs)
-            if(kode_tabs ==="01"){
-                return this.tabs_menu.is_rutin_tabs=true
-
-            }else if(kode_tabs ==="02"){
-                return this.tabs_menu.is_rutin_tabs=false
-            }
-        },
-        changeTaskState(){
-            return this.selected_task_indicator =''
-        },
-       async getTaskList(month){//async
-               this.$store.commit('SET_LOADING',true)
-           const url=`/monthly_progress/${month}`
-
-          await axios.get(url)
-          .then((response)=>{
-              const res=response.data
-              this.tasks=res.data
-              this.$store.commit('SET_LOADING',false)
-          }).catch((error)=>{
-              console.log(error)
-              this.$store.commit('SET_LOADING',false)
-          })
-        },
-
-        async updatedTaskStatus(){
-            await this.getTaskList(this.current_month.value)
-        }
     },
-    async mounted(){
-        await this.getTaskList(this.current_month.value)
-    }
+
 }
 </script>
+
+<style scoped>
+a.router-link-active {
+  @apply bg-blue-600 text-white shadow-md
+}
+</style>

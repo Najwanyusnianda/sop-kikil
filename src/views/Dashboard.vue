@@ -119,6 +119,7 @@
 import MonitoringTask from '../components/dashboard/MonitoringTask.vue'
 import RealisasiAnggaran from '../components/dashboard/RealisasiAnggaran.vue'
 import {mapState} from 'vuex'
+import axios from 'axios'
 //import MonitoringTask from '../components/monthly_progress/MonitoringTask.vue';
 export default {
     name:'Dashboard',
@@ -129,7 +130,16 @@ export default {
   //      MonitoringTask
     },
     computed:{
-      ...mapState(['current_month','months'])
+      ...mapState(['current_month','months']),
+    },
+    async created(){
+      const url="/get_current_month"
+      await axios.get(url).then((response)=>{
+        console.log(response)
+        if(response.status ===200){
+            this.$store.commit('SET_MONTH', response.data)
+        }
+      })
     }
 }
 </script>

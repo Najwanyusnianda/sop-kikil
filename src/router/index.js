@@ -47,7 +47,18 @@ const routes = [
         path:'laporan_bulanan',
         name:'LaporanBulanan',
         component: () => import(/* webpackChunkName: "about" */ '../views/Management/LaporanBulanan.vue'),
-
+        children:[
+          {
+            path:'ikpa',
+            name:'Ikpa',
+            component:() =>import(/* webpackChunkName: "about" */ '../views/Management/laporan_bulanan/Ikpa.vue'),
+          },
+          {
+            path:'task',
+            name:'RutinBulanan',
+            component:() =>import(/* webpackChunkName: "about" */ '../views/Management/laporan_bulanan/RutinBulanan.vue'),
+          }
+        ]
 
 
       },
@@ -90,21 +101,6 @@ history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
-router.beforeEach((to,from,next)=>{
-  const loggedIn =localStorage.getItem('user')
 
-  if(to.matched.some(record=>record.meta.requiresAuth) && !loggedIn){
-    next('/login')
-    return
-  }else{
-    if(to.name =='Login' &&  loggedIn){
-      next({name:'Dashboard'})
-    }else{
-      //next({name:'Login'})
-      next()
-    }
-
-  }
-})
 
 export default router
