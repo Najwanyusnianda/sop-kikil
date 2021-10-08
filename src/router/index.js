@@ -52,6 +52,7 @@ const routes = [
             path:'ikpa',
             name:'Ikpa',
             component:() =>import(/* webpackChunkName: "about" */ '../views/Management/laporan_bulanan/Ikpa.vue'),
+
           },
           {
             path:'task',

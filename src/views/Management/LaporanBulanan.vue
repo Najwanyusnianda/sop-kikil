@@ -6,7 +6,7 @@
             <tabs-menu :tabs_menu='tabs_menu' @changedTabs="changeTabs"></tabs-menu>
         </header>-->
                 <div class="flex items-center justify-between">
-            <span class="font-bold text-2xl text-gray-800 dark:text-white ml-2 -mt-1 mr-5">Kinerja Bulanan</span>
+            <span class="font-bold text-2xl text-gray-800 dark:text-white ml-2 -mt-1 mr-5 mb-10"></span>
 
                     <header class="w-1/3  shadow-lg bg-white dark:bg-gray-700 -mt-5 items-center h-12 rounded-2xl z-40">
 
@@ -76,11 +76,14 @@ export default {
         }
     },
     computed:{
-
+        
     },
     methods:{
 
     },
+    created(){
+         this.$router.push({ name: 'Ikpa' })
+    }
 
 }
 </script>

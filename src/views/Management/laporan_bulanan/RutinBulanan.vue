@@ -77,8 +77,8 @@ export default {
                 {indicator_id:'3002',name:'Penyelesaian Tagihan', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
                 {indicator_id:'3003',name:'Capaian Output', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
                 {indicator_id:'3004',name:'Retur SP2D', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'3003',name:'Pengembalian SPM', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
-                {indicator_id:'3004',name:'Perencanaan Kas', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
+                {indicator_id:'3005',name:'Pengembalian SPM', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
+                {indicator_id:'3006',name:'Perencanaan Kas', bobot:5,tanggal_update:'2021-10-09',is_complete:false},
             ],
 
 

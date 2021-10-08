@@ -14,7 +14,7 @@ export default {
    // MonitoringTask
   },
   created(){
-     this.$router.push({ name: 'LaporanBulanan' })
+     this.$router.push({ name: 'Dashboard' })
   }
 }
 </script>

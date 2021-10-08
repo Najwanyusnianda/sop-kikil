@@ -1,14 +1,14 @@
 <template>
     <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
         <p class="font-bold text-md p-4 text-black dark:text-white">
-            Realisasi Anggaran
+            
             <span class="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">
 
             </span>
         </p>
         <hr>
         <div class="block m-auto px-5">
-            <LineChart :chartData="testData" :options="options"/>        </div>
+            <LineChart :chartData="chartData" :options="options"/>        </div>
 
     </div>
 </template>
@@ -30,20 +30,47 @@ import {
 
 Chart.register(...registerables);
 export default {
-    name: 'RealisasiAnggaran',
+    name: 'IkpaChart',
     components: {
         LineChart
     },
-
+    props:{
+        labelChart:{
+            type:String
+        },
+        chartDataset:{
+            type:Array,
+            default(){
+                return []
+            }
+        }
+    },
     data() {
         return {
-            testData: '',
+           // chartData: '',
             options: '',
         }
     },
     computed: {
         ...mapState(['current_month', 'months']),
-        ...mapGetters(['months_name'])
+        ...mapGetters(['months_name']),
+        chartData(){
+            return{
+            labels: this.chartDataset.map((el)=> el.month_num),
+            datasets: [{
+                    fill: true,
+                    label: this.labelChart,
+                    data: this.chartDataset.map((el)=> el.value),
+                    borderColor: '#0984e3',
+                    backgroundColor: 'rgba(54, 162, 235,0.6)',
+                }
+
+
+
+            ],
+        }
+
+        }
 
 
     },
@@ -58,6 +85,11 @@ export default {
                 intersect: false,
             },
             stacked: false,
+                scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
             plugins: {
                 title: {
                     display: true,
@@ -73,26 +105,7 @@ export default {
                 }
             }
         }
-        return this.testData = {
-            labels: this.months_name,
-            datasets: [{
-                    fill: true,
-                    label: 'Realisasi',
-                    data: [10, 10, 15, 25, 30, 40, 41, 43, 46],
-                    borderColor: '#0984e3',
-                    backgroundColor: 'rgba(54, 162, 235,0.6)',
-                }, {
-                    fill: true,
-                    label: 'target',
-                    data: [10, 20, 30, 40, 50, 55, 60, 70, 80, 90, 95, 100],
-                    borderColor: '#d63031',
-                    backgroundColor: 'rgba(255, 99, 132,0.5)',
-                },
-
-
-
-            ],
-        }
+      
     }
 
 
