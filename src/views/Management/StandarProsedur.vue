@@ -50,7 +50,7 @@ import SopForm from '../../components/sop/SopForm.vue'
 import SopDetail from '../../components/sop/SopDetail.vue'
 import axios from 'axios'
 import VTailwindModal from '../../components/utils/VTailwindModal.vue'
-
+import {mapState} from 'vuex'
 //import TabsMenu from '../../components/sop/TabsMenu.vue'
 
 export default {
@@ -61,6 +61,7 @@ export default {
         SopForm,
         VTailwindModal,
         SopDetail,
+
 
     },
     name: 'StandarProsedur',
@@ -78,6 +79,9 @@ export default {
             current_sop:'',
 
         }
+    },
+    computed:{
+             ...mapState(['current_month','current_year','is_loading']),
     },
     methods: {
         changeTabs(kode_tabs) {
@@ -146,7 +150,9 @@ export default {
             this.is_form_sop=true
         },
         async detailSop(id){
+            this.$store.commit('SET_LOADING',true)
             await this.getSelectedSop(id)
+            this.$store.commit('SET_LOADING',false)
             this.openModal()
         },
         async deleteSop(id){
@@ -175,7 +181,9 @@ export default {
 
     },
     async mounted(){
+          this.$store.commit('SET_LOADING',true)
         await this.fetchSops()
+         this.$store.commit('SET_LOADING',false)
     }
 }
 

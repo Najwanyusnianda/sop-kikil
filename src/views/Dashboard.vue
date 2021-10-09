@@ -118,7 +118,7 @@
               </div>
             </div>
             <div class="sm:w-1/2 flex flex-col p-3">
-                
+
               <table class="min-w-full divide-y divide-gray-200 w-4/5 overflow-scroll table-fixed">
                 <thead class="bg-gray-50">
                   <tr>
@@ -131,7 +131,7 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Nilai Akhir
                     </th>
-                    
+
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200" v-if="monthly_ikpa_selected">
@@ -198,7 +198,7 @@ export default {
         ikpas_selected:[],
         indicator_selected_name:'',
         monthly_ikpa_selected:[],
-        month_selected:''  
+        month_selected:''
       }
       },
     computed:{
@@ -217,7 +217,7 @@ export default {
     },
     methods:{
       getSelectedMonthName(value){
-        const months = [ "January", "February", "March", "April", "May", "June", 
+        const months = [ "January", "February", "March", "April", "May", "June",
            "July", "August", "September", "October", "November", "December" ];
 
         return months[value-1];
@@ -229,15 +229,15 @@ export default {
               return ind.indicator_id == indicator_id
             });
 
-           
+
           // console.log(selected_name)
             const tempSelect= JSON.parse(JSON.stringify(selected_name));
             console.log("this is..")
             console.log(tempSelect[0]);
             await this.getIndicatorSeries(indicator_id)
             this.indicator_selected_name=tempSelect[0].name
-            
-            console.log(selected_name) 
+
+            console.log(selected_name)
       },
       async selectedMonthly(event){
           const month_num=event.target.value
@@ -245,12 +245,12 @@ export default {
            const tempSelect= JSON.parse(JSON.stringify(selected_month));
            await this.getMonthlyIkpa(month_num)
              this.month_selected=tempSelect[0].name
-            
+
       },
       async getIndicatorSeries(indicator_id){
-        
 
-     
+
+
         const url = `/ikpa/indicator/${indicator_id}`
         await axios.get(url).then((response)=>{
           const result = response.data
@@ -275,6 +275,8 @@ export default {
             this.$store.commit('SET_MONTH', response.data)
         }
       })
+      await this.getMonthlyIkpa(10)
+      await this.getIndicatorSeries(1001)
     }
 }
 </script>

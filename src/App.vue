@@ -5,7 +5,10 @@
   </div>-->
 
   <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl flex flex-col flex-1  relative">
-
+            <loading v-model:active="is_loading"
+                 :can-cancel="true"
+                 :on-cancel="onCancel"
+                 :is-full-page="fullPage"/>
     <navbar  :user="getUser" v-if="isLogged"  ></navbar> <!--v-if="isLogged"-->
     <div class="flex flex-col flex-1 w-full h-full bg-gray-100">
     <router-view/>
@@ -29,13 +32,15 @@
     </style>
 <script>
 //import Loading from 'vue-loading-overlay'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import axios from 'axios'
 import Navbar from './components/navbar.vue'
 import {mapState,mapGetters,mapActions} from 'vuex'
 export default {
   components:{
     Navbar,
-    ///Loading
+    Loading
   },
   computed:{
      ...mapState(['current_month','current_year','is_loading']),

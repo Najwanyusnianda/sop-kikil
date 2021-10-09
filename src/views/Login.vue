@@ -90,21 +90,24 @@ export default {
               ...mapState([
     'loggingIn',
     'loginError',
-    'loginSuccessful'
+    'loginSuccessful','is_loading'
   ]),
     },
     methods: {
         ...mapActions([
-            "login"
+            "login",
         ]),
         pushLogin(){
          // this.$router.push({name:'Dashboard'})
+          this.$store.commit('SET_LOADING',true)
           this.login(this.auth).then((response)=>{
             console.log(response)
-            this.$router.push({name:'Dashboard'})
+             this.$store.commit('SET_LOADING',false)
+            this.$router.push({name:'Sop'})
           }).catch(error => {
             console.log("error:")
             console.log(error)
+             this.$store.commit('SET_LOADING',false)
        // if (error.response.status === 401) {
           this.$store.commit('LOGIN_STOP', "user tidak ditemukan")
             console.log('Failed to login')

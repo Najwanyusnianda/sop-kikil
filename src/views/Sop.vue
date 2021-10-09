@@ -45,6 +45,47 @@
           </div>
         </div>
       </div>
+            <div class="p-4 lg:w-1/2 ">
+        <div class="h-full hover:border-2 bg-white hover:border-blue-500 flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left p-5">
+
+          <div class="flex-grow sm:pl-8">
+            <h2 class="title-font font-medium text-lg text-gray-900">Laporan Keuangan</h2>
+            <h3 class="text-gray-500 mb-3"></h3>
+            <p class="mb-4">Pembayaran/Realisasi Anggaran, Penyampaian Data Kontrak, Penyelesaian Tagihan, SPM yang Akurat, Kebijakan Dispensasi SPM</p>
+            <span class="inline-flex">
+                <button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded" @click="filterSopType('anggaran')" >Lihat</button>
+            </span>
+          </div>
+        </div>
+      </div>
+            <div class="p-4 lg:w-1/2 ">
+        <div class="h-full hover:border-2 bg-white hover:border-blue-500 flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left p-5">
+
+          <div class="flex-grow sm:pl-8">
+            <h2 class="title-font font-medium text-lg text-gray-900">Manajemen Kas</h2>
+            <h3 class="text-gray-500 mb-3"></h3>
+            <p class="mb-4">Pembayaran/Realisasi Anggaran, Penyampaian Data Kontrak, Penyelesaian Tagihan, SPM yang Akurat, Kebijakan Dispensasi SPM</p>
+            <span class="inline-flex">
+
+                <button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded" @click="filterSopType('kas')" >Lihat</button>
+
+            </span>
+          </div>
+        </div>
+      </div>
+            <div class="p-4 lg:w-1/2 ">
+        <div class="h-full hover:border-2 bg-white hover:border-blue-500 flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left p-5">
+
+          <div class="flex-grow sm:pl-8">
+            <h2 class="title-font font-medium text-lg text-gray-900">Lainnya</h2>
+            <h3 class="text-gray-500 mb-3"></h3>
+            <p class="mb-4">Pembayaran/Realisasi Anggaran, Penyampaian Data Kontrak, Penyelesaian Tagihan, SPM yang Akurat, Kebijakan Dispensasi SPM</p>
+            <span class="inline-flex">
+                <button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded" @click="filterSopType('Lainnya')" >Lihat</button>
+            </span>
+          </div>
+        </div>
+      </div>
 
     </div>
       </div>
@@ -57,6 +98,7 @@
 import SearchMenu from '../components/sop/SearchMenu.vue'
 import SopList from '../components/sop/SopList.vue'
 import axios from 'axios'
+import {mapState} from 'vuex'
 
 export default {
     name:'Sop',
@@ -71,6 +113,9 @@ export default {
             tags:[],
             is_next:false
             }
+    },
+    computed:{
+      ...mapState(['current_month','current_year','is_loading'])
     },
     methods:{
               async fetchSops(){
@@ -97,14 +142,19 @@ export default {
          }
 
 
-
+          this.$store.commit('SET_LOADING', true)
           await axios.get(url).then((response)=>{
+
+
                 const res = response.data
                 this.sops= res.data.sop_list,
                 this.tags=res.data.tags_list
                   this.is_next=true
+                  this.$store.commit('SET_LOADING', false)
             }).catch((error)=>{
               console.log(error)
+
+
               this.$store.commit('SET_LOADING',false)
           })
         }

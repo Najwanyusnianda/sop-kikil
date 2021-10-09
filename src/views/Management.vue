@@ -20,7 +20,7 @@ export default {
         Sidebar
     },
     created(){
-        this.$router.push({ name: 'LaporanBulanan' })
+        this.$router.push({ name: 'StandarProsedur' })
     }
 }
 </script>
