@@ -1,7 +1,7 @@
 <template>
     <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
         <p class="font-bold text-md p-4 text-black dark:text-white">
-            
+
             <span class="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">
 
             </span>
@@ -56,7 +56,9 @@ export default {
         ...mapGetters(['months_name']),
         chartData(){
             return{
-            labels: this.chartDataset.map((el)=> el.month_num),
+            labels: this.chartDataset.map((el)=>{
+                    return this.getSelectedMonthName(el.month_num)
+            } ),
             datasets: [{
                     fill: true,
                     label: this.labelChart,
@@ -73,6 +75,14 @@ export default {
         }
 
 
+    },
+    methods:{
+              getSelectedMonthName(value){
+        const months = [ "January", "February", "March", "April", "May", "June",
+           "July", "August", "September", "October", "November", "December" ];
+
+        return months[value-1];
+      },
     },
     mounted() {
         console.log(this.months_name)
@@ -105,7 +115,7 @@ export default {
                 }
             }
         }
-      
+
     }
 
 

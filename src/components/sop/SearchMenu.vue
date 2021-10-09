@@ -12,12 +12,11 @@
                         </svg>
                     </div>
                     <div class="search flex w-full">
-                        <form class="w-full flex" @submit.prevent="searchProsedur" >
                                                 <input type="text" v-model="search_sop"
                         class="justify-start block w-3/4 py-1.5 pl-10 pr-4 leading-normal rounded-2xl focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 ring-opacity-90 bg-gray-100 dark:bg-gray-800 text-gray-400 aa-input"
                         placeholder="Pencarian" />
-                            <button type="submit" class="bg-blue-600 text-white px-4 py-1 ml-2 rounded-md"> Cari</button>
-                        </form>
+                            <button  @click="searchProsedur"  class="bg-blue-600 text-white px-4 py-1 ml-2 rounded-md"> Cari</button>
+
                     </div>
                     <svg class="absolute left-0 z-20 hidden w-4 h-4 ml-4 text-gray-500 pointer-events-none fill-current group-hover:text-gray-400 sm:block"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -81,8 +80,9 @@ export default {
             const type=event.target.value
             this.$emit("filterType",type)
         },
-        search_prosedur(){
-            console.log(this.search_sop)
+        searchProsedur(){
+
+            this.$emit("searchSop",this.search_sop)
         }
 
 

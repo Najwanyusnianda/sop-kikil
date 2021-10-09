@@ -50,54 +50,13 @@
             <span class="text-xl font-semibold">Perkembangan Indikator Kinerja Pelaksanaan Anggaran</span>
           </div>
         </header>
-        <div class="bg-white w-full  pb-10 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
-          <div class="flex justify-between mt-5 p-2">
-            <div class="font-semibold text-xl p-5"> {{indicator_selected_name ?? 'ikpa'}}</div>
-            <select @change="selectedIkpa"
-              class="block  w-80 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-              name="month">
-              <option :value="ikpa.indicator_id" v-for="ikpa in ikpas_selection" :key="ikpa.indicator_id"
-                @change="getIndicatorSeries">
-                {{ikpa.name}}
-              </option>
-            </select>
-          </div>
-          <div class="w-full flex">
-            <div class="sm:w-1/2 flex flex-col p-3">
-
-
-              <div class="ikpa_chart" v-if="ikpas_selected">
-                <ikpa-chart :chartDataset="ikpas_selected" :labelChart="indicator_selected_name"></ikpa-chart>
-              </div>
-            </div>
-            <div class="sm:w-1/2 flex flex-col p-3 px-5 ">
-
-              <table class="min-w-full divide-y divide-gray-200 w-4/5 overflow-scroll table-fixed">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Bulan
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Nilai
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200" v-if="map_ikpas_selected">
-                  <tr v-for="ikpa in map_ikpas_selected " :key="ikpa.ikpa_id">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ikpa.month}}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ikpa.value}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-        </div>
-        <div class="w-full bg-white pb-10 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
+                <div class="w-full bg-white pb-10 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
 
 
           <div class="flex justify-between mt-5 p-2">
+            <div class="ml-2 mt-2">
+             Bulan  {{ current_month.name }} {{month_selected}}
+            </div>
             <select @change="selectedMonthly"
               class="block  w-80 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
               name="month">
@@ -151,6 +110,52 @@
             </div>
           </div>
         </div>
+        <div class="bg-white w-full  pb-10 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
+          <div class="flex justify-between mt-5 p-2">
+            <div class="font-semibold text-xl p-5" v-if="indicator_selected_name"> {{indicator_selected_name  }}</div>
+               <div class="font-semibold text-xl p-5" else> Penyerapan Anggaran</div>
+            <select @change="selectedIkpa"
+              class="block  w-80 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+              name="month">
+              <option :value="ikpa.indicator_id" v-for="ikpa in ikpas_selection" :key="ikpa.indicator_id"
+                @change="getIndicatorSeries">
+                {{ikpa.name}}
+              </option>
+            </select>
+          </div>
+          <div class="w-full flex">
+            <div class="sm:w-1/2 flex flex-col p-3">
+
+
+              <div class="ikpa_chart" v-if="ikpas_selected">
+                <ikpa-chart :chartDataset="ikpas_selected" :labelChart="indicator_selected_name"></ikpa-chart>
+              </div>
+            </div>
+            <div class="sm:w-1/2 flex flex-col p-3 px-5 ">
+
+              <table class="min-w-full divide-y divide-gray-200 w-4/5 overflow-scroll table-fixed">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Bulan
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Nilai
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" v-if="map_ikpas_selected">
+                  <tr v-for="ikpa in map_ikpas_selected " :key="ikpa.ikpa_id">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ikpa.month}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ikpa.value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </main>
@@ -269,14 +274,20 @@ export default {
     },
     async created(){
       const url="/get_current_month"
+       this.$store.commit('SET_LOADING', true)
       await axios.get(url).then((response)=>{
        // console.log(response)
         if(response.status ===200){
             this.$store.commit('SET_MONTH', response.data)
+            this.$store.commit('SET_LOADING', false)
         }
       })
+      this.$store.commit('SET_LOADING', true)
       await this.getMonthlyIkpa(10)
-      await this.getIndicatorSeries(1001)
+      this.$store.commit('SET_LOADING', false)
+      this.$store.commit('SET_LOADING', true)
+      await this.getIndicatorSeries(3001)
+      this.$store.commit('SET_LOADING', false)
     }
 }
 </script>

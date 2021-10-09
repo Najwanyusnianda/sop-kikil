@@ -84,13 +84,13 @@
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                   <tr v-for="sop in sops" :key="sop.id">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                      {{ sop.title }} {{ sop.id }}
+                                    <td class="px-6 py-4 font-semibold flex text-sm">
+                                      {{ sop.title }}
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap break-words">
 
-                                      <p class="truncate ...">{{ sop.description }}</p>
+                                      <p class="truncate ... text-xs">{{ sop.description }}</p>
 
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

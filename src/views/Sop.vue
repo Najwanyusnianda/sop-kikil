@@ -2,10 +2,9 @@
 
   <main class="bg-gray-100 dark:bg-gray-800 rounded-2xl  w-full overflow-auto h-screen relative p-auto">
     <div class="flex items-center justify-center">
-
       <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4" v-if="is_next">
         <header class="w-4/5 shadow-lg bg-white dark:bg-gray-700 justify-items-center mx-auto h-16 rounded-2xl z-40">
-            <search-menu @filterType="filterSopType"></search-menu>
+            <search-menu @filterType="filterSopType" @searchSop="searchSop"></search-menu>
         </header>
         <div class="  pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
           <div class="flex flex-col flex-wrap sm:flex-row justify-center">
@@ -146,6 +145,28 @@ export default {
           await axios.get(url).then((response)=>{
 
 
+                const res = response.data
+                this.sops= res.data.sop_list,
+                this.tags=res.data.tags_list
+                  this.is_next=true
+                  this.$store.commit('SET_LOADING', false)
+            }).catch((error)=>{
+              console.log(error)
+
+
+              this.$store.commit('SET_LOADING',false)
+          })
+        },
+
+        async searchSop(keyword){
+
+         // const type=JSON.parse(JSON.stringify(e));
+
+
+         let url= `/sops/search/${keyword}`
+
+          this.$store.commit('SET_LOADING', true)
+          await axios.get(url).then((response)=>{
                 const res = response.data
                 this.sops= res.data.sop_list,
                 this.tags=res.data.tags_list

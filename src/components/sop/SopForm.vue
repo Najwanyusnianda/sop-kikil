@@ -264,7 +264,7 @@ export default {
                console.log("update..")
                console.log(this.current_sop.id)
                 const url_update = '/sops/update'
-
+    this.$store.commit('SET_LOADING',true)
                await axios.post(url_update,
                    formData, {
                        headers: header
@@ -272,11 +272,12 @@ export default {
                    if (response.status === 200) {
                        const result = response.data
                        console.log(result)
+                       this.$store.commit('SET_LOADING',false)
                        this.resetStateSop()
                    }
                })
            }else{
-
+                this.$store.commit('SET_LOADING',true)
                await axios.post(url,
 
                    formData, {
@@ -285,6 +286,7 @@ export default {
                    if (response.status === 200) {
                        const result = response.data
                        console.log(result)
+                        this.$store.commit('SET_LOADING',false)
                        this.resetStateSop()
                    }
                })
