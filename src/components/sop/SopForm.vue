@@ -77,6 +77,27 @@
                                         class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                 </div>
                             </div>
+                            <div class="relative">
+                                    <label for="description" class="leading-7 text-sm text-gray-600 w-1/2">Jenis SOP</label>
+                                    <select v-model="sop_form.type"
+                                        class="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                                        name="type">
+                                        <option value="anggaran">
+                                            Anggaran
+                                        </option>
+                                        <option value="kas">
+                                            Manajemen Kas
+                                        </option>
+                                        <option value="keuangan">
+                                            Laporan Keuangan
+                                        </option>
+                                        <option value="lainnya">
+                                            Lainnya
+                                        </option>
+
+
+                                    </select>
+                                </div>
                             <div class="p-2 w-full">
                                 <div class="relative">
 
@@ -106,7 +127,7 @@
                                                 </label>
                                             </td>
                                         </tr>
-                                        {{  sop_form.tags_id }}
+
                                         <tr class="font-semibold items-center  ">
                                             <td class="">
                                                 <input type="checkbox" id="tags_id" name="tags_id" v-model="sop_form.tags_id"
@@ -205,6 +226,7 @@ export default {
                 title: this.current_sop.title ?? '',
                 description: this.current_sop.description ?? '',
                 tags_id: [],
+                type:''
 
             },
             sop_file:'',
@@ -236,6 +258,7 @@ export default {
            formData.append('title',this.sop_form.title)
            formData.append('description',this.sop_form.description)
            formData.append('tags_id',this.sop_form.tags_id)
+           formData.append('type',this.sop_form.type)
             if (this.current_sop.id) {
                formData.append('id',this.current_sop.id)
                console.log("update..")

@@ -35,12 +35,12 @@
 
                 </div>
                 <div class="Roles Show">
-                <select @change="filterRole" v-model="selected_role"
+                <select @change="filterType"
                     class="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                     name="role">
 
-                    <option v-for="role in roles" :key="role.kode" :value="role.kode">
-                        {{ role.name }}
+                    <option v-for="type in types" :key="type.value" :value="type.value">
+                        {{ type.name }}
                     </option>
 
                 </select>
@@ -64,13 +64,22 @@ export default {
             {name:'Pejabat Penandatangan SPM',kode:12},
             {name:'Bendahara Pengeluaran',kode:13},
             {name:'Subject Matter',kode:20}],
+            types:[
+                {name:'Semua',value:'semua'},
+                {name:'Pelaksanaan Anggaran',value:'anggaran'},
+                {name:'Manajemen Kas',value:'kas'},
+                {name:'Laporan Keuangan',value:'keuangan'},
+                {name:'Lainnya',value:'lainnya'},
+            ],
             selected_role:0,
+            selected_type:0,
             search_sop:''
         }
     },
     methods:{
-        filterRole(){
-            console.log(this.selected_role)
+        filterType(event){
+            const type=event.target.value
+            this.$emit("filterType",type)
         },
         search_prosedur(){
             console.log(this.search_sop)

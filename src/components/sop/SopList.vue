@@ -8,7 +8,7 @@
 <section class="text-gray-600 body-font" v-if="sops.length > 0">
   <div class="container   bg-white px-5 py-24 mx-auto ">
     <div class="justify-center flex mx-auto w-full ">
-        <table class="table-auto  ">
+        <table class="table-auto w-4/5 ">
       <thead>
         <tr>
           <th></th>
@@ -21,6 +21,9 @@
           <td class="flex flex-col pb-4 mr-5">
             <a href="#" @click.prevent="detailSop(sop.id)" class="text-base font-semibold hover:text-blue-500"> {{sop.title}} </a>
             <span class="text-xs text-gray-400"> {{ sop.updated }} </span>
+            <span>
+               <p class="text-sm mt-3 truncate ...">{{ sop.description }}</p>
+            </span>
             <div class="pt-4 w-1/3">
               <span v-for="tag in sop.tags" :key="tag.tag_id" class="px-2 py-1  items-center  text-xs rounded-md text-gray-500 bg-gray-200 mx-1">{{tag.name}}</span>
 

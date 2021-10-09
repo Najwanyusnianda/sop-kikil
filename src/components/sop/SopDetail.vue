@@ -31,7 +31,7 @@
 
         <div class="flex mt-5">
           <span class="title-font font-medium text-xs text-gray-600">Terakhir diperbarui : {{updated_at}}</span>
-          <a   :href="current_sop.file_url" target="_blank" class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Download</a>
+          <a href="#"  @click.prevent=" addHttpPrefix(current_sop.file_url)" target="_blank" class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Download</a>
 
         </div>
       </div>
@@ -63,6 +63,12 @@ export default {
     computed:{
       updated_at(){
         return dayjs(this.current_sop.updated_at).format('YYYY-MM-DD HH:mm:ss')
+      }
+    },
+    methods:{
+      addHttpPrefix(str){
+
+        window.open(str, "_blank");
       }
     }
 }

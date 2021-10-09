@@ -16,9 +16,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path:'/sop',
-    name:'Sop',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Sop.vue')
+    path:'/sop_menu',
+    name:'SopMenu',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SopMenu.vue'),
+    children:[
+      {
+        path:'main',
+        name:'SopMain',
+        component: () => import(/* webpackChunkName: "about" */ '../views/SopMain.vue'),
+      },
+      {
+        path:'sop',
+        name:'Sop',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Sop.vue'),
+      }
+    ]
 
   },
   {
@@ -88,7 +100,8 @@ const routes = [
       {
         path:'standar_prosedur',
         name:'StandarProsedur',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Management/StandarProsedur.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Management/StandarProsedur.vue'),
+
 
       },
     ]

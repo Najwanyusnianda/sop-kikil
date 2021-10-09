@@ -12,7 +12,8 @@ import('@/assets/main.css');
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 createApp(App).use(router).use(store)
-.use(axios.defaults.baseURL='http://127.0.0.1:8000/api/')
+//.use(axios.defaults.baseURL='http://127.0.0.1:8000/api/')https://webapps.bps.go.id/acehsingkilkab/sopkikil/api
+.use(axios.defaults.baseURL='https://webapps.bps.go.id/acehsingkilkab/sopkikil/api/')
 .use(
   router.beforeEach((to,from,next)=>{
 

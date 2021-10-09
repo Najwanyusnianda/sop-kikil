@@ -128,8 +128,9 @@ export default {
     data(){
         return {
             navigation:[
-                { name:'Dashboard',href:'Dashboard',current:false},
-                { name:'Sop',href:'Sop',current:false},
+                  { name:'SOP',href:'Sop',current:false},
+                { name:'Monitoring',href:'Dashboard',current:false},
+
                 { name:'Management',href:'Management',current:false},
             ],
             open_profile:false
