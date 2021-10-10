@@ -28,7 +28,7 @@
       <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4" v-else>
                     <div class="flex flex-col text-center w-full mb-20">
       <h1 class="text-2xl font-medium title-font mb-4 text-gray-900 tracking-widest">SOP KIKIL</h1>
-      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Merupakan sistem yang disusun untuk memudahkan, merapikan, dan menertibkan pekerjaan yang berkaitan dengan pelaksanaan .</p>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Sistem yang disusun untuk memudahkan, merapikan, dan menertibkan pekerjaan yang berkaitan dengan pelaksanaan .</p>
     </div>
     <div class="flex flex-wrap -m-4">
       <div class="p-4 lg:w-1/2 ">
@@ -50,7 +50,7 @@
           <div class="flex-grow sm:pl-8">
             <h2 class="title-font font-medium text-lg text-gray-900">Laporan Keuangan</h2>
             <h3 class="text-gray-500 mb-3"></h3>
-            <p class="mb-4">Pembayaran/Realisasi Anggaran, Penyampaian Data Kontrak, Penyelesaian Tagihan, SPM yang Akurat, Kebijakan Dispensasi SPM</p>
+            <p class="mb-4">Penyampaian LPJ Bendahara dan Penyelesaian Pagu Minus Belanja</p>
             <span class="inline-flex">
                 <button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded" @click="filterSopType('anggaran')" >Lihat</button>
             </span>
@@ -63,7 +63,7 @@
           <div class="flex-grow sm:pl-8">
             <h2 class="title-font font-medium text-lg text-gray-900">Manajemen Kas</h2>
             <h3 class="text-gray-500 mb-3"></h3>
-            <p class="mb-4">Pembayaran/Realisasi Anggaran, Penyampaian Data Kontrak, Penyelesaian Tagihan, SPM yang Akurat, Kebijakan Dispensasi SPM</p>
+            <p class="mb-4">Pengelolaan UP/TUP, Revisi DIPA, Renkas/RPD, Deviasi Halaman III DIPA, Retur SP2D</p>
             <span class="inline-flex">
 
                 <button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded" @click="filterSopType('kas')" >Lihat</button>
@@ -78,7 +78,7 @@
           <div class="flex-grow sm:pl-8">
             <h2 class="title-font font-medium text-lg text-gray-900">Lainnya</h2>
             <h3 class="text-gray-500 mb-3"></h3>
-            <p class="mb-4">Pembayaran/Realisasi Anggaran, Penyampaian Data Kontrak, Penyelesaian Tagihan, SPM yang Akurat, Kebijakan Dispensasi SPM</p>
+            <p class="mb-4">SOP, dan Panduan Lainnya</p>
             <span class="inline-flex">
                 <button class="flex ml-auto text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded" @click="filterSopType('Lainnya')" >Lihat</button>
             </span>
